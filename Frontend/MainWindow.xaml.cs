@@ -13,16 +13,41 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Frontend
+namespace FrontEnd
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    #pragma warning disable LRT001
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void AvaliableBookListBox_SelectionChanged(object sender, SelectionChangedEventArgs arguments)
+        {
+            // TODO
+        }
+
+        private void BorrowedBookListBox_SelectionChanged(object sender, SelectionChangedEventArgs arguments)
+        {
+            // TODO
+        }
+
+        private void LendBooks_Click(object sender, RoutedEventArgs arguments)
+        {
+            var window = new BorrowingDetailsWindow(null);
+            if (window.ShowDialog() ?? false)
+            {
+                // TODO: update ListBox
+            }
+        }
+
+        private void ReturnBooks_Click(object sender, RoutedEventArgs arguments)
+        {
+            // TODO
         }
     }
 }

@@ -1,12 +1,67 @@
-﻿<Window x:Class="Frontend.MainWindow"
+﻿<Window x:Class="FrontEnd.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Frontend"
+        xmlns:local="clr-namespace:FrontEnd"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Book Manager" Height="450" Width="800">
+    <TabControl>
+            <TabItem Header="Avaliable books">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-    </Grid>
+                    <Label Grid.Row="0" Content="Books avaliable for lending:" FontWeight="Bold" Margin="10, 0, 10, 0" />
+                    <Grid Grid.Row="1" Margin="10, 10, 10, 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
+                        <ComboBox Grid.Column="1" />
+                        <TextBox Grid.Column="2" Margin="10, 0, 0, 0" />
+                    </Grid>
+                    <ListBox x:Name="AvaliableBookListBox" Grid.Row="2" Margin="10" SelectionMode="Multiple" 
+                                         SelectionChanged="AvaliableBookListBox_SelectionChanged" />
+                    <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
+                                                Content="Lend book(s)" Height="20" Click="LendBooks_Click" Grid.RowSpan="2" 
+                                                VerticalAlignment="Bottom" />
+                </Grid>
+        </TabItem>
+            <TabItem Header="Borrowed books">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Currently borrowed books:" FontWeight="Bold" Margin="10, 0, 10, 0" />
+                    <Grid Grid.Row="1" Margin="10, 10, 10, 0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
+                        <ComboBox Grid.Column="1" />
+                        <TextBox Grid.Column="2" Margin="10, 0, 0, 0" />
+                    </Grid>
+                    <ListBox x:Name="BorrowedBookList" Grid.Row="2" Margin="10" SelectionMode="Multiple" 
+                                     SelectionChanged="BorrowedBookListBox_SelectionChanged" />
+                    <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
+                                            Content="Return book(s)" Height="20" Click="ReturnBooks_Click" Grid.RowSpan="2" 
+                                            VerticalAlignment="Bottom" />       
+                </Grid>
+            </TabItem>
+        </TabControl>
 </Window>

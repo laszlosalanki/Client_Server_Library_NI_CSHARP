@@ -6,11 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Frontend
+namespace FrontEnd
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+#pragma warning disable LRT001 // There is only one restricted namespace
     public partial class App : Application
     {
     }
