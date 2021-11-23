@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrontEnd"
         mc:Ignorable="d"
-        Title="Book Manager" Height="450" Width="800">
+        Title="Book Manager" Height="450" Width="800" Icon="/book_icon_158035.png" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <TabControl>
-            <TabItem Header="Avaliable books">
+            <TabItem Header="Available books">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -16,20 +16,21 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Content="Books avaliable for lending:" FontWeight="Bold" Margin="10, 0, 10, 0" />
-                    <Grid Grid.Row="1" Margin="10, 10, 10, 0" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Content="Books available for lending:" FontWeight="Bold" Margin="10, 0, 10, 0" />
+                <Grid Grid.Row="1" Margin="10, 10, 10, 0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
-                        <ComboBox Grid.Column="1" />
-                        <TextBox Grid.Column="2" Margin="10, 0, 0, 0" />
-                    </Grid>
-                    <ListBox x:Name="AvaliableBookListBox" Grid.Row="2" Margin="10" SelectionMode="Multiple" 
-                                         SelectionChanged="AvaliableBookListBox_SelectionChanged" />
+                    <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
+                    <ComboBox x:Name="AvailableComboFilter" Grid.Column="1" />
+                    <TextBox x:Name="AvailableFilter" Grid.Column="2" Margin="10, 0, 0, 0" TextChanged="AvailableFilter_TextChanged" />
+                </Grid>
+                <DataGrid x:Name="AvailableBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue" CanUserAddRows="False"
+                                         SelectionChanged="AvailableBooksDataGrid_SelectionChanged" CanUserDeleteRows="false"
+                              CanUserReorderColumns="True" AlternatingRowBackground="LightGray" />
                     <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                                 Content="Lend book(s)" Height="20" Click="LendBooks_Click" Grid.RowSpan="2" 
                                                 VerticalAlignment="Bottom" />
@@ -53,11 +54,12 @@
                         </Grid.ColumnDefinitions>
                         
                         <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
-                        <ComboBox Grid.Column="1" />
+                        <ComboBox x:Name="BorrowedComboFilter" Grid.Column="1" />
                         <TextBox Grid.Column="2" Margin="10, 0, 0, 0" />
                     </Grid>
-                    <ListBox x:Name="BorrowedBookList" Grid.Row="2" Margin="10" SelectionMode="Multiple" 
-                                     SelectionChanged="BorrowedBookListBox_SelectionChanged" />
+                    <DataGrid x:Name="BorrowedBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue"
+                              CanUserAddRows="False" CanUserReorderColumns="True" CanUserDeleteRows="False"
+                                    AutoGenerateColumns="True" SelectionChanged="BorrowedBooksDaraGrid_SelectionChanged" AlternatingRowBackground="LightGray" />
                     <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                             Content="Return book(s)" Height="20" Click="ReturnBooks_Click" Grid.RowSpan="2" 
                                             VerticalAlignment="Bottom" />       

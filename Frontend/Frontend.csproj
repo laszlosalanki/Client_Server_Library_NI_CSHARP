@@ -8,11 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="book_icon_158035.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NI.CSharp.Analyzers" Version="2.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="book_icon_158035.png" />
   </ItemGroup>
 
 </Project>
