@@ -26,7 +26,7 @@
 
                     <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
                     <ComboBox x:Name="AvailableComboFilter" Grid.Column="1" />
-                    <TextBox x:Name="AvailableFilter" Grid.Column="2" Margin="10, 0, 0, 0" TextChanged="AvailableFilter_TextChanged" />
+                    <TextBox x:Name="AvailableFilter" Grid.Column="2" Margin="10, 0, 0, 0" TextChanged="AvailableFilter_TextChanged" KeyDown="AvailableFilter_KeyDown" />
                 </Grid>
                 <DataGrid x:Name="AvailableBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue" CanUserAddRows="False"
                                          SelectionChanged="AvailableBooksDataGrid_SelectionChanged" CanUserDeleteRows="false"
@@ -55,7 +55,7 @@
                         
                         <Label Grid.Column="0" Content="Filter by:" Margin="0, 0, 10, 0" />
                         <ComboBox x:Name="BorrowedComboFilter" Grid.Column="1" />
-                        <TextBox Grid.Column="2" Margin="10, 0, 0, 0" />
+                        <TextBox x:Name="BorrowedFilter" Grid.Column="2" Margin="10, 0, 0, 0" TextChanged="BorrowedFilter_TextChanged" KeyDown="BorrowedFilter_KeyDown" />
                     </Grid>
                     <DataGrid x:Name="BorrowedBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue"
                               CanUserAddRows="False" CanUserReorderColumns="True" CanUserDeleteRows="False"

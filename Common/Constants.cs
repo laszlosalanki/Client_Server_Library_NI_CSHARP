@@ -26,13 +26,13 @@ namespace Common
             "Authors",
             "Publisher",
             "Borrower first name",
-            "Borrower last name",
-            "Date of borrow"
+            "Borrower last name"
         };
 
         // Let 'Title' be the default filter for searching
         public static int DEFAULT_FILTER_INDEX = 1;
-        public static string DEFAULT_FILTER = AVAILABLE_FILTER_OPTIONS[DEFAULT_FILTER_INDEX];
+        public static string DEFAULT_FILTER_AVAILABLE = AVAILABLE_FILTER_OPTIONS[DEFAULT_FILTER_INDEX];
+        public static string DEFAULT_FILTER_BORROWED = BORROWED_FILTER_OPTIONS[DEFAULT_FILTER_INDEX];
 
         // Temporal data for demonstration
         public static List<AvailableBook> TEMPORAL_DATA_AVAILABLE = new List<AvailableBook>()

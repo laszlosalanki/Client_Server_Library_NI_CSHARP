@@ -33,22 +33,6 @@ namespace FrontEnd
             SetBorrowedBookList();
         }
 
-        private void NameFilter(object sender, FilterEventArgs e)
-        {
-            var obj = e.Item as AvailableBook;
-            if (obj != null)
-            {
-                if (obj.Title.Contains(AvailableFilter.Text))
-                {
-                    e.Accepted = true;
-                }
-                else
-                {
-                    e.Accepted = false;
-                }
-            }
-        }
-
         private void SetFilterComboBoxes()
         {
             // Available
@@ -135,6 +119,67 @@ namespace FrontEnd
 
             AvailableBooksDataGrid.ItemsSource = null;
             AvailableBooksDataGrid.ItemsSource = newList;
+        }
+
+        private void BorrowedFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<Book> newList;
+            switch (BorrowedComboFilter.Text)
+            {
+                case "ISBN":
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.ISBN.ToString().Contains(BorrowedFilter.Text)).ToList();
+                    break;
+
+                case "Title":
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.Title.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
+                    break;
+
+                case "Authors":
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.Authors.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
+                    break;
+
+                case "Publisher":
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.Publisher.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
+                    break;
+
+                case "Borrower first name":
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.BorrowerFirstName.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
+                    break;
+
+                case "Borrower last name":
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.BorrowerLastName.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
+                    break;
+
+                default:
+                    newList = Constants.TEMPORAL_DATA_BORROWED
+                        .Where(x => x.Title.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
+                    break;
+            }
+
+            BorrowedBooksDataGrid.ItemsSource = null;
+            BorrowedBooksDataGrid.ItemsSource = newList;
+        }
+
+        private void BorrowedFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                BorrowedFilter.Text = string.Empty;
+            }
+        }
+
+        private void AvailableFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                AvailableFilter.Text = string.Empty;
+            }
         }
     }
 }
