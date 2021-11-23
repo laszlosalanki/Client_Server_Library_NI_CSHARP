@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrontEnd"
         mc:Ignorable="d"
-        Title="Borrowing details" Height="500" Width="400">
+        Title="Borrowing details" Height="500" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -15,7 +15,7 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -25,16 +25,18 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="First name:" Margin="10" />
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="10" ToolTip="First name of the client."/>
+            <TextBox x:Name="ClientFirstName" Grid.Column="1" Grid.Row="0" Margin="10" ToolTip="First name of the client."/>
 
             <Label Grid.Column="0" Grid.Row="1" Content="Last name:" Margin="10" />
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="10" ToolTip="Last name of the client." />
+            <TextBox x:Name="ClientLastName" Grid.Column="1" Grid.Row="1" Margin="10" ToolTip="Last name of the client." />
 
             <Label Grid.Column="0" Grid.Row="2" Content="Return date:" Margin="10" />
-            <DatePicker Grid.Column="1" Grid.Row="2" Margin="10" ToolTip="The day, when the client should return the book(s)." />
+            <DatePicker x:Name="ClientShouldReturnBooks" Grid.Column="1" Grid.Row="2" Margin="10" ToolTip="The day, when the client should return the book(s)." />
         </Grid>
 
-        <ListBox Grid.Row="1" Margin="10"/>
+        <DataGrid x:Name="BorrowingDetailsDataGrid" Grid.Row="1" Margin="10"
+                  RowBackground="AliceBlue" CanUserAddRows="False" CanUserReorderColumns="True" CanUserDeleteRows="False"
+                  AutoGenerateColumns="True" AlternatingRowBackground="LightGray"/>
 
         <Grid Grid.Row="2" HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
@@ -42,7 +44,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Width="50" HorizontalAlignment="Right" Margin="10, 0, 10, 10" Content="Lend" />
+            <Button x:Name="LendBooks" Grid.Column="0" Width="50" HorizontalAlignment="Right" Margin="10, 0, 10, 10" Content="Lend" Click="LendBooks_Click" />
             <Button x:Name="BorrowingDetailsCancelButton" Grid.Column="1" Width="50" HorizontalAlignment="Right" 
                     Margin="10, 0, 10, 10" Content="Cancel" Click="BorrowingDetailsCancelButton_Click" />
         </Grid>

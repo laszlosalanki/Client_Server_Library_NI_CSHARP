@@ -74,7 +74,14 @@ namespace FrontEnd
 
         private void LendBooks_Click(object sender, RoutedEventArgs arguments)
         {
-            var window = new BorrowingDetailsWindow(null);
+            List<AvailableBook> selectedBooks = AvailableBooksDataGrid.SelectedItems.Cast<AvailableBook>().ToList();
+            if (selectedBooks.Count == 0)
+            {
+                MessageBox.Show("No books selected!");
+                return;
+            }
+
+            var window = new BorrowingDetailsWindow(selectedBooks);
             if (window.ShowDialog() ?? false)
             {
                 // TODO: update ListBox

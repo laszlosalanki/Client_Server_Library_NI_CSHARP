@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 using Common;
 
 namespace FrontEnd
@@ -9,24 +11,35 @@ namespace FrontEnd
     #pragma warning disable LRT001
     public partial class BorrowingDetailsWindow : Window
     {
-        private readonly Book _book;
-        public BorrowingDetailsWindow(Book book)
+        private readonly List<AvailableBook> _selectedBooks;
+        public BorrowingDetailsWindow(List<AvailableBook> selectedBooks)
         {
             InitializeComponent();
 
-            if (book != null)
+            if (selectedBooks != null)
             {
-                _book = book;
+                _selectedBooks = new List<AvailableBook>(selectedBooks);
             }
             else
             {
-                _book = new Book();
+                _selectedBooks = new List<AvailableBook>();
             }
+
+            BorrowingDetailsDataGrid.ItemsSource = _selectedBooks;
         }
 
         private void BorrowingDetailsCancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void LendBooks_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ClientFirstName.Text) || string.IsNullOrEmpty(ClientLastName.Text) || ClientShouldReturnBooks.SelectedDate == null)
+            {
+                MessageBox.Show("Missing arguments!");
+                return;
+            }
         }
     }
 }
