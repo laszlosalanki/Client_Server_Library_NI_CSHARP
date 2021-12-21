@@ -1,0 +1,53 @@
+﻿<Window x:Class="FrontEnd.AddBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrontEnd"
+        mc:Ignorable="d"
+        Title="Add book" Height="350" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="ISBN*:" Margin="10" />
+            <TextBox x:Name="ISBN" Grid.Row="0" Grid.Column="1" Margin="10" ToolTip="ISBN number of the book." />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Title*:" Margin="10" />
+            <TextBox x:Name="Title" Grid.Row="1" Grid.Column="1" Margin="10" ToolTip="Title of the book." />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Authors:" Margin="10" />
+            <TextBox x:Name="Authors" Grid.Row="2" Grid.Column="1" Margin="10" ToolTip="Authors of the book." />
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Publisher:" Margin="10" />
+            <TextBox x:Name="Publisher" Grid.Row="3" Grid.Column="1" Margin="10" ToolTip="Publisher of the book." />
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Release date:" Margin="10" />
+            <DatePicker x:Name="ReleaseDate" Grid.Row="4" Grid.Column="1" Margin="10" ToolTip="Release date of the book." />
+        </Grid>
+
+        <Button x:Name="CancelButton" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="10, 0, 10, 10"
+                Content="Cancel" Click="CancelClick" />
+
+        <Button x:Name="AddButton" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="10, 0, 120, 10"
+                Content="Add" Click="AddClick" />
+    </Grid>
+</Window>

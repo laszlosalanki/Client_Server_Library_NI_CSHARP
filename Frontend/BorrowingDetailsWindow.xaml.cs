@@ -35,11 +35,34 @@ namespace FrontEnd
 
         private void LendBooks_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(ClientFirstName.Text) || string.IsNullOrEmpty(ClientLastName.Text) || ClientShouldReturnBooks.SelectedDate == null)
+            if (ValidateSelection())
             {
                 MessageBox.Show("Missing arguments!");
                 return;
             }
+        }
+
+        private bool ValidateSelection()
+        {
+            if (string.IsNullOrEmpty(ClientFirstName.Text))
+            {
+                MessageBox.Show("Field 'Client First Name' should not be empty!");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(ClientLastName.Text))
+            {
+                MessageBox.Show("Field 'Client Last Name' should not be empty!");
+                return false;
+            }
+
+            if (!ClientShouldReturnBooks.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Please select the date, when the client should return the given book(s)!");
+                return false;
+            }
+
+            return true;
         }
     }
 }

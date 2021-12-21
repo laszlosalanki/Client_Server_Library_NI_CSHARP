@@ -67,7 +67,7 @@ namespace FrontEnd
             // TODO
         }
 
-        private void BorrowedBooksDaraGrid_SelectionChanged(object sender, SelectionChangedEventArgs arguments)
+        private void BorrowedBooksDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs arguments)
         {
             // TODO
         }
@@ -84,13 +84,58 @@ namespace FrontEnd
             var window = new BorrowingDetailsWindow(selectedBooks);
             if (window.ShowDialog() ?? false)
             {
-                // TODO: update ListBox
+                // TODO: update List
             }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs arguments)
+        {
+            List<AvailableBook> selectedBooks = AvailableBooksDataGrid.SelectedItems.Cast<AvailableBook>().ToList();
+            if (selectedBooks.Count == 0)
+            {
+                MessageBox.Show("No books selected!");
+                return;
+            }
+
+            // TODO: remove it from the server
+
+            List<AvailableBook> actualData = AvailableBooksDataGrid.Items.Cast<AvailableBook>().ToList();
+            foreach (var book in selectedBooks)
+            {
+                actualData.Remove(book);
+            }
+
+            AvailableBooksDataGrid.ItemsSource = actualData;
         }
 
         private void ReturnBooks_Click(object sender, RoutedEventArgs arguments)
         {
             // TODO
+        }
+
+        private void ModifyBook_Click(object sender, RoutedEventArgs arguments)
+        {
+            List<AvailableBook> selectedBooks = AvailableBooksDataGrid.SelectedItems.Cast<AvailableBook>().ToList();
+            if (selectedBooks.Count != 1)
+            {
+                MessageBox.Show("Select only 1 row!");
+                return;
+            }
+
+            var window = new ModifyBookWindow(selectedBooks[0]);
+            if (window.ShowDialog() ?? false)
+            {
+                // TODO: update List
+            }
+        }
+
+        private void AddBook_Click(object sender, RoutedEventArgs arguments)
+        {
+            var window = new AddBookWindow();
+            if (window.ShowDialog() ?? false)
+            {
+                // TODO: update List
+            }
         }
 
         private void AvailableFilter_TextChanged(object sender, EventArgs e)

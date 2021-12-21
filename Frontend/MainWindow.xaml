@@ -31,11 +31,17 @@
                 <DataGrid x:Name="AvailableBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue" CanUserAddRows="False"
                                          SelectionChanged="AvailableBooksDataGrid_SelectionChanged" CanUserDeleteRows="false"
                               CanUserReorderColumns="True" AlternatingRowBackground="LightGray" />
-                    <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
+                <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                                 Content="Lend book(s)" Height="20" Click="LendBooks_Click" Grid.RowSpan="2" 
                                                 VerticalAlignment="Bottom" />
-                </Grid>
-        </TabItem>
+                <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0, 0, 120, 10"
+                                                Content="Delete book(s)" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="DeleteButton_Click" />
+                <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0, 0, 230, 10"
+                                                Content="Modify book" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="ModifyBook_Click" />
+                <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0, 0, 340, 10"
+                                                Content="Add book" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="AddBook_Click" />
+            </Grid>
+            </TabItem>
             <TabItem Header="Borrowed books">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -59,7 +65,7 @@
                     </Grid>
                     <DataGrid x:Name="BorrowedBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue"
                               CanUserAddRows="False" CanUserReorderColumns="True" CanUserDeleteRows="False"
-                                    AutoGenerateColumns="True" SelectionChanged="BorrowedBooksDaraGrid_SelectionChanged" AlternatingRowBackground="LightGray" />
+                                    AutoGenerateColumns="True" SelectionChanged="BorrowedBooksDataGrid_SelectionChanged" AlternatingRowBackground="LightGray" />
                     <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                             Content="Return book(s)" Height="20" Click="ReturnBooks_Click" Grid.RowSpan="2" 
                                             VerticalAlignment="Bottom" />       
