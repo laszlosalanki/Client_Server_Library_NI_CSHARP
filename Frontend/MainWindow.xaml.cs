@@ -47,6 +47,7 @@ namespace FrontEnd
         private void SetAvailableBookList()
         {
             AvailableBooksDataGrid.ItemsSource = Constants.TEMPORAL_DATA_AVAILABLE;
+            AvailableBooksDataGrid.IsReadOnly = true;
             foreach (var column in AvailableBooksDataGrid.Columns)
             {
                 column.IsReadOnly = true;
@@ -106,6 +107,10 @@ namespace FrontEnd
             }
 
             AvailableBooksDataGrid.ItemsSource = actualData;
+            foreach (var column in AvailableBooksDataGrid.Columns)
+            {
+                column.IsReadOnly = true;
+            }
         }
 
         private void ReturnBooks_Click(object sender, RoutedEventArgs arguments)

@@ -37,7 +37,7 @@ namespace FrontEnd
         {
             if (ValidateSelection())
             {
-                MessageBox.Show("Missing arguments!");
+                MessageBox.Show("TODO");
                 return;
             }
         }
@@ -46,13 +46,13 @@ namespace FrontEnd
         {
             if (string.IsNullOrEmpty(ClientFirstName.Text))
             {
-                MessageBox.Show("Field 'Client First Name' should not be empty!");
+                MessageBox.Show("Field 'First Name' should not be empty!");
                 return false;
             }
 
             if (string.IsNullOrEmpty(ClientLastName.Text))
             {
-                MessageBox.Show("Field 'Client Last Name' should not be empty!");
+                MessageBox.Show("Field 'Last Name' should not be empty!");
                 return false;
             }
 
