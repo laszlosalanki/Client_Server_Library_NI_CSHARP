@@ -1,13 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// init service
-var booksService = BooksService.GetInstance;
+builder.Services.AddDbContext<BooksDB>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlDbConnect")))
+                .AddTransient<BooksService>();
 
+var service = BooksService.getInstance;
 var app = builder.Build();
 
 app.MapGet("test", () =>
 {
-    return booksService.SayHello();
+
 });
 
 app.Run();
