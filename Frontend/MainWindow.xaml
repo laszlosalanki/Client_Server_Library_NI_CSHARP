@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrontEnd"
         mc:Ignorable="d"
-        Title="Book Manager" Height="450" Width="800" Icon="/favicon.ico" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+        Title="Book Manager" Height="768" Width="1280" Icon="/favicon.ico" ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
     <TabControl>
             <TabItem Header="Available books">
                 <Grid>
