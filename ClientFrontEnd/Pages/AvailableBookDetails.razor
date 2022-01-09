@@ -1,1 +1,43 @@
 ﻿@page "/availablebooks/{AvailableISBN}"
+
+@if (Book == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">ISBN</label>
+        <div class="col-sm-8">
+            <label type="text" class="form-control-plaintext">@Book.ISBN</label>
+        </div>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Title</label>
+        <div class="col-sm-8">
+            <label type="text" class="form-control-plaintext">@Book.Title</label>
+        </div>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Authors</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.Authors</label>
+        </div>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Publisher</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.Publisher</label>
+        </div>
+    </div>
+
+    <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Release Date</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.ReleaseDate.ToString()</label>
+        </div>
+    </div>
+}
