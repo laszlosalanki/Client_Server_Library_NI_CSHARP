@@ -1,0 +1,37 @@
+﻿@page "/availablebooks"
+
+<h1>Available Books</h1>
+
+@if (AvailableBooks == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>Publisher</th>
+                <th>Release Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var availableBook in AvailableBooks)
+            {
+                <tr>
+                    <td>@availableBook.ISBN</td>
+                    <td>@availableBook.Title</td>
+                    <td>@availableBook.Authors</td>
+                    <td>@availableBook.Publisher</td>
+                    <td>@availableBook.ReleaseDate</td>
+                    <td>
+                        <a href="@($"availablebooks/{availableBook.ISBN}")" class="btn btn-info table-btn">Info</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

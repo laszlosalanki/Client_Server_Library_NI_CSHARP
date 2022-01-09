@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEnd", "Frontend\FrontE
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LibraryDB", "LibraryDB\LibraryDB.sqlproj", "{C45B58A8-5582-4686-9947-CDEF6F040579}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientFrontEnd", "ClientFrontEnd\ClientFrontEnd.csproj", "{9495D7FA-D7DE-4E9D-BDD3-01471A24636A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{C45B58A8-5582-4686-9947-CDEF6F040579}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C45B58A8-5582-4686-9947-CDEF6F040579}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C45B58A8-5582-4686-9947-CDEF6F040579}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9495D7FA-D7DE-4E9D-BDD3-01471A24636A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9495D7FA-D7DE-4E9D-BDD3-01471A24636A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9495D7FA-D7DE-4E9D-BDD3-01471A24636A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9495D7FA-D7DE-4E9D-BDD3-01471A24636A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
