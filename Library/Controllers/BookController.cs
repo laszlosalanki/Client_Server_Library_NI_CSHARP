@@ -55,7 +55,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpGet] [Route("delete/{isbn}")]
+    [HttpDelete] [Route("delete/{isbn}")]
     public ActionResult DeleteBook([FromRoute] long isbn)
     {
         try

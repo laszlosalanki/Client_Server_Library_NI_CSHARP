@@ -4,10 +4,10 @@
     [title] VARCHAR(255) NOT NULL,
 	[authors] VARCHAR(255) NOT NULL,
 	[publisher] VARCHAR(255) NOT NULL,
-	[release_date] DATE NOT NULL,
+	[releaseDate] DATE NOT NULL,
 	
-	[borrower_first_name] VARCHAR(255),
-	[borrower_last_name] VARCHAR(255),
-	[borrow_date] DATE,
-	[should_return] DATE,
+	[borrowerFirstName] VARCHAR(255),
+	[borrowerLastName] VARCHAR(255),
+	[borrowDate] DATE,
+	[shouldReturn] DATE,
 )

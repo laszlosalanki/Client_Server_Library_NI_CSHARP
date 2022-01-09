@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="a8e9bd5a-a77c-4061-bdf2-4c4b50b77b0a" ChangeDateTime="01/09/2022 20:20:11">
+    <Property Name="ElementName" Value="[dbo].[Books].[borrow_date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Books]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="borrowDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a13b60c4-79d9-4e75-ba5e-0a555260cd77" ChangeDateTime="01/09/2022 20:20:15">
+    <Property Name="ElementName" Value="[dbo].[Books].[should_return]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Books]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="shouldReturn" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6f0015f7-f242-477b-86d3-a7f088674570" ChangeDateTime="01/09/2022 20:20:20">
+    <Property Name="ElementName" Value="[dbo].[Books].[borrower_last_name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Books]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="borrowerLastName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8e1a54f4-e54f-452d-8017-531d81eb295a" ChangeDateTime="01/09/2022 20:20:26">
+    <Property Name="ElementName" Value="[dbo].[Books].[borrower_first_name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Books]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="borrowerFirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="38fb95df-1a33-46fb-989c-fee40438f631" ChangeDateTime="01/09/2022 20:20:28">
+    <Property Name="ElementName" Value="[dbo].[Books].[release_date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Books]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="releaseDate" />
+  </Operation>
+</Operations>
