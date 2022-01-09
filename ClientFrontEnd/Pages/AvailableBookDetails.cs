@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Common;
+using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 
 namespace ClientFrontEnd.Pages
 {
@@ -10,5 +12,13 @@ namespace ClientFrontEnd.Pages
 
         [Parameter]
         public long AvailableISBN{ get; set; }
+
+        public Book Book{ get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            Book = await HttpClient.GetFromJsonAsync<Book>($"availablebook/{AvailableISBN}");
+            await base.OnInitializedAsync();
+        }
     }
 }
