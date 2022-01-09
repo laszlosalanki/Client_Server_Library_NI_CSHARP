@@ -16,10 +16,9 @@ public class BookRepository : IBookRepository
 
     public List<Book> getAvailableBooks()
     {
-        var book = new Book((long)1, "asd", "asd", "asd", DateTime.Now, null, null, null, null);
-        var list = new List<Book>();
-        list.Add(book);
-        return list;
+        //var list = new List<Book>();
+        //list.Add(_context.Books.First());
+        return _context.Books.AsQueryable().ToList();
     }
 
     public List<Book> getBorrowedBooks()

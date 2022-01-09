@@ -13,7 +13,7 @@ public class BookController : Controller
 
     [HttpGet]
     [Route("availableBooks")]
-    public async Task<ActionResult<List<Book>>> GetAvailableBooksAsync()
+    public ActionResult<List<Book>> GetAvailableBooks()
     {
         try
         {
