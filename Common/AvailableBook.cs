@@ -24,5 +24,14 @@ namespace Common
             Publisher = publisher;
             ReleaseDate = releaseDate;
         }
+
+        public AvailableBook(Book book)
+        {
+            ISBN = book.ISBN;
+            Title = book.Title;
+            Authors = book.Authors;
+            Publisher = book.Publisher;
+            ReleaseDate = book.ReleaseDate;
+        }
     }
 }

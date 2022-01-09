@@ -28,5 +28,14 @@ namespace Common
             BorrowDate = borrowDate;
             ShouldReturn = shouldReturn;
         }
+
+        public Book(AvailableBook availableBook)
+        {
+            ISBN = availableBook.ISBN;
+            Title = availableBook.Title;
+            Authors = availableBook.Authors;
+            Publisher = availableBook.Publisher;
+            ReleaseDate = availableBook.ReleaseDate;
+        }
     }
 }
