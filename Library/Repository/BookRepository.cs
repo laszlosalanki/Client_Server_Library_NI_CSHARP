@@ -18,9 +18,31 @@ public class BookRepository : IBookRepository
     public bool DeleteBook(long isbn)
     {
         Book? bookToDelete = this._context.Books.Find(isbn);
-        if (bookToDelete != null)
+        if (bookToDelete != null
+            && bookToDelete.BorrowerLastName == null
+            && bookToDelete.BorrowerFirstName == null)
         {
             this._context.Remove(bookToDelete);
+            this._context.SaveChanges();
+            return true;
+        }
+        return false;
+    }
+
+    public bool DeleteBooks(long[] isbn)
+    {
+        if (isbn.Length > 0)
+        {
+            foreach (var isbnNum in isbn)
+            {
+                Book? match = this._context.Books.Find(isbnNum);
+                if (match != null
+                    && match.BorrowerLastName == null
+                    && match.BorrowerFirstName == null)
+                {
+                    this._context.Books.Remove(match);
+                }
+            }
             this._context.SaveChanges();
             return true;
         }
@@ -34,11 +56,28 @@ public class BookRepository : IBookRepository
                              .ToArray();
     }
 
+    public Book? GetBook(long isbn)
+    {
+        return this._context.Books.Find(isbn);
+    }
+
     public Book[] GetBorrowedBooks()
     {
         return _context.Books.AsQueryable()
                              .Where(book => book.BorrowerFirstName != null && book.BorrowerLastName != null)
                              .ToArray();
+    }
+
+    public Book[] GetBorrowedBooksBy(string firstName, string lastName)
+    {
+        return _context.Books.Where(b => b.BorrowerFirstName != null && b.BorrowerFirstName.Contains(firstName) &&
+                                         b.BorrowerLastName != null && b.BorrowerLastName.Contains(lastName))
+                             .ToArray();
+    }
+
+    public bool IsAvailableISBN(long isbn)
+    {
+        return !this._context.Books.Any(b => b.ISBN == isbn);
     }
 
     public void LendBooks(Book[] booksToLend)
@@ -48,7 +87,11 @@ public class BookRepository : IBookRepository
             var _book = this._context.Books.Find(book.ISBN);
             if (_book != null)
             {
-                this._context.Books.Update(book);
+                _book.BorrowDate = book.BorrowDate;
+                _book.BorrowerLastName = book.BorrowerLastName;
+                _book.BorrowerFirstName = book.BorrowerFirstName;
+                _book.ShouldReturn = book.ShouldReturn;
+                this._context.Books.Update(_book);
             }
         }
         this._context.SaveChanges();
@@ -58,14 +101,14 @@ public class BookRepository : IBookRepository
     {
         foreach (long isbn in isbnNumbers)
         {
-            var _book = this._context.Books.Find(isbn);
-            if (_book != null)
+            var book = this._context.Books.Find(isbn);
+            if (book != null)
             {
-                _book.ShouldReturn = null;
-                _book.BorrowDate = null;
-                _book.BorrowerLastName = null;
-                _book.BorrowerLastName = null;
-                this._context.Books.Update(_book);
+                book.ShouldReturn = null;
+                book.BorrowDate = null;
+                book.BorrowerLastName = null;
+                book.BorrowerLastName = null;
+                this._context.Books.Update(book);
             }
         }
         this._context.SaveChanges();

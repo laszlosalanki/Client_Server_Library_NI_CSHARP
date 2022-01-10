@@ -17,7 +17,21 @@ public class BookController : Controller
         return new Book((long)r, "asd", "asd", "mr. asd", DateTime.Now, null, null, null, null);
     }
 
-    [HttpGet] [Route("available")]
+    [HttpGet] [Route("{isbn}")]
+    public ActionResult<Book?> GetBook([FromRoute] long isbn)
+    {
+        Book? result = this._bookRepo.GetBook(isbn);
+        if (result != null)
+        {
+            return Ok(result);
+        }
+        else
+        {
+            return BadRequest("Requested book was not found.");
+        }
+    }
+
+    [HttpGet] [Route("availableAll")]
     public ActionResult<Book[]> GetAvailableBooks()
     {
         try
@@ -30,7 +44,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpGet] [Route("borrowed")]
+    [HttpGet] [Route("borrowedAll")]
     public ActionResult<Book[]> GetBorrowedBooks()
     {
         try
@@ -41,6 +55,34 @@ public class BookController : Controller
         {
             return BadRequest("Internal server error.");
         }
+    }
+
+    [HttpGet] [Route("borrowedBy")]
+    public ActionResult<Book[]> GetBorrowedBooksBy([FromBody] string firstName, [FromBody] string lastName)
+    {
+        try
+        {
+            return Ok(this._bookRepo.GetBorrowedBooksBy(firstName, lastName));
+        }
+        catch (Exception)
+        {
+            return BadRequest("Internal server error.");
+        }
+    }
+
+    [HttpGet] [Route("isbn/{number}")]
+    public ActionResult IsAvailableISBN([FromRoute] long number)
+    {
+        var message = "ISBN number " + number + " is ";
+        if (this._bookRepo.IsAvailableISBN(number))
+        {
+            message += "available";
+        }
+        else
+        {
+            message += "already registered";
+        }
+        return Ok(message + ".");
     }
 
     [HttpPost] [Route("add")]
@@ -68,13 +110,19 @@ public class BookController : Controller
             {
                 response = "Deletion operation was unsuccessful.";
             }
-
             return Ok(response);
         }
         catch (Exception)
         {
             return BadRequest("Internal server error.");
         }
+    }
+
+    [HttpDelete] [Route("deleteBooks")]
+    public ActionResult DeleteBooks([FromBody] long[] isbn)
+    {
+        this._bookRepo.DeleteBooks(isbn);
+        return Ok("Deletion operation finished.");
     }
 
     [HttpPut] [Route("update")]
@@ -90,7 +138,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpPut] [Route("return")]
+    [HttpPut] [Route("returnBooks")]
     public ActionResult ReturnBooks([FromBody] long[] isbnNumbers)
     {
         try
@@ -104,7 +152,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpPut] [Route("lend")]
+    [HttpPut] [Route("lendBooks")]
     public ActionResult LendBooks([FromBody] Book[] booksToLend)
     {
         try
@@ -117,5 +165,4 @@ public class BookController : Controller
             return BadRequest("Internal server error.");
         }
     }
-
 }
