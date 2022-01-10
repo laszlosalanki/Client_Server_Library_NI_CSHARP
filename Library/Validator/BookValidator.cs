@@ -2,15 +2,33 @@ using Common;
 
 public static class BookValidator
 {
-    public static Book? ValidateBook(Book book)
+    public static bool IsBookValid(Book book)
     {
-        // TODO
-        if (book != null
-            && book.ISBN > 0 && book.ISBN.ToString().Length == 13
-            && book.Title.Trim().Length > 0)
+        if (book.ISBN < 0)
+            return false;
+        if (book.ISBN.ToString().Length != 13)
+            return false;
+        if (book.BorrowDate != null && book.ShouldReturn != null)
         {
-            return book;
+            if (book.BorrowDate >= book.ShouldReturn)
+                return false;
         }
-        return null;
+        string specialChars = "~^^!×_()@#$%*{}[]\\|/<>;:!+";
+        if (book.BorrowerLastName != null)
+        {
+            if (ContainsCharacters(book.BorrowerLastName, specialChars)) 
+                return false;
+        }
+        if (book.BorrowerFirstName != null)
+        {
+            if (ContainsCharacters(book.BorrowerFirstName, specialChars))
+                return false;
+        }
+        return true;
+    }
+
+    private static bool ContainsCharacters(string text, string charactersToCheck)
+    {
+        return charactersToCheck.Where(x => text.Contains(x)).Any();
     }
 }

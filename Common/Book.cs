@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Common
 {
 #pragma warning disable LRT001
     public class Book
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key] public long ISBN { get; set; } // the id of the book
         public string Title { get; set; } // name of the book
         public string? Authors { get; set; } // the author of the book
