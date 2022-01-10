@@ -43,7 +43,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpPut] [Route("add")]
+    [HttpPost] [Route("add")]
     public ActionResult<Book> AddBook([FromBody] Book bookToAdd)
     {
         try
@@ -77,7 +77,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpPost] [Route("update")]
+    [HttpPut] [Route("update")]
     public ActionResult<Book> UpdateBook([FromBody] Book bookToUpdate)
     {
         try
@@ -90,7 +90,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpPost] [Route("return")]
+    [HttpPut] [Route("return")]
     public ActionResult ReturnBooks([FromBody] long[] isbnNumbers)
     {
         try
@@ -104,7 +104,7 @@ public class BookController : Controller
         }
     }
 
-    [HttpPost] [Route("lend")]
+    [HttpPut] [Route("lend")]
     public ActionResult LendBooks([FromBody] Book[] booksToLend)
     {
         try
