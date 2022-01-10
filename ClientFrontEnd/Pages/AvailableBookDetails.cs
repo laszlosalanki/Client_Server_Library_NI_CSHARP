@@ -17,7 +17,7 @@ namespace ClientFrontEnd.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Book = await HttpClient.GetFromJsonAsync<Book>($"availablebook/{AvailableISBN}");
+            Book = await HttpClient.GetFromJsonAsync<Book>($"books/available/{AvailableISBN}");
             await base.OnInitializedAsync();
         }
     }
