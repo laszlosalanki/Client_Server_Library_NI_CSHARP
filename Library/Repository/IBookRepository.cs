@@ -11,6 +11,6 @@ public interface IBookRepository
     void LendBooks(Book[] booksToLend);
     void ReturnBooks(long[] isbnNumbers);
     Book[] GetBorrowedBooks();
-    Book[] GetBorrowedBooksBy(string firstName, string lastName);
+    Book[] GetBorrowedBooksBy(string name);
     Book[] GetAvailableBooks();
 }

@@ -8,12 +8,15 @@ public static class BookValidator
             return false;
         if (book.ISBN.ToString().Length != 13)
             return false;
+        string specialChars = "~^×#${}|<>";
+        if (ContainsCharacters(book.Title, specialChars))
+            return false;
         if (book.BorrowDate != null && book.ShouldReturn != null)
         {
             if (book.BorrowDate >= book.ShouldReturn)
                 return false;
         }
-        string specialChars = "~^^!×_()@#$%*{}[]\\|/<>;:!+";
+        specialChars = "~^^!×_()@#$%*{}[]\\|/<>;:!+";
         if (book.BorrowerLastName != null)
         {
             if (ContainsCharacters(book.BorrowerLastName, specialChars)) 

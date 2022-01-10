@@ -68,10 +68,11 @@ public class BookRepository : IBookRepository
                              .ToArray();
     }
 
-    public Book[] GetBorrowedBooksBy(string firstName, string lastName)
+    public Book[] GetBorrowedBooksBy(string name)
     {
-        return _context.Books.Where(b => b.BorrowerFirstName != null && b.BorrowerFirstName.Contains(firstName) &&
-                                         b.BorrowerLastName != null && b.BorrowerLastName.Contains(lastName))
+        return _context.Books.Where(b => b.BorrowerFirstName != null
+                                         && b.BorrowerLastName != null
+                                         && (b.BorrowerFirstName + b.BorrowerLastName).Contains(name))
                              .ToArray();
     }
 

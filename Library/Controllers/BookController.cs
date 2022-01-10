@@ -57,12 +57,12 @@ public class BookController : Controller
         }
     }
 
-    [HttpGet] [Route("borrowedBy")]
-    public ActionResult<Book[]> GetBorrowedBooksBy([FromBody] string firstName, [FromBody] string lastName)
+    [HttpGet] [Route("borrowedBy/{name}")]
+    public ActionResult<Book[]> GetBorrowedBooksBy([FromRoute] string name)
     {
         try
         {
-            return Ok(this._bookRepo.GetBorrowedBooksBy(firstName, lastName));
+            return Ok(this._bookRepo.GetBorrowedBooksBy(name));
         }
         catch (Exception)
         {
@@ -71,22 +71,13 @@ public class BookController : Controller
     }
 
     [HttpGet] [Route("isbn/{number}")]
-    public ActionResult IsAvailableISBN([FromRoute] long number)
+    public ActionResult<bool> IsAvailableISBN([FromRoute] long number)
     {
-        var message = "ISBN number " + number + " is ";
-        if (this._bookRepo.IsAvailableISBN(number))
-        {
-            message += "available";
-        }
-        else
-        {
-            message += "already registered";
-        }
-        return Ok(message + ".");
+        return Ok(this._bookRepo.IsAvailableISBN(number));
     }
 
     [HttpPost] [Route("add")]
-    public ActionResult<Book> AddBook([FromBody] Book bookToAdd)
+    public ActionResult<Book> AddBook(Book bookToAdd)
     {
         try
         {
@@ -119,14 +110,14 @@ public class BookController : Controller
     }
 
     [HttpDelete] [Route("deleteBooks")]
-    public ActionResult DeleteBooks([FromBody] long[] isbn)
+    public ActionResult DeleteBooks(long[] isbn)
     {
         this._bookRepo.DeleteBooks(isbn);
         return Ok("Deletion operation finished.");
     }
 
     [HttpPut] [Route("update")]
-    public ActionResult<Book> UpdateBook([FromBody] Book bookToUpdate)
+    public ActionResult<Book> UpdateBook(Book bookToUpdate)
     {
         try
         {
@@ -139,7 +130,7 @@ public class BookController : Controller
     }
 
     [HttpPut] [Route("returnBooks")]
-    public ActionResult ReturnBooks([FromBody] long[] isbnNumbers)
+    public ActionResult ReturnBooks(long[] isbnNumbers)
     {
         try
         {
@@ -153,7 +144,7 @@ public class BookController : Controller
     }
 
     [HttpPut] [Route("lendBooks")]
-    public ActionResult LendBooks([FromBody] Book[] booksToLend)
+    public ActionResult LendBooks(Book[] booksToLend)
     {
         try
         {
