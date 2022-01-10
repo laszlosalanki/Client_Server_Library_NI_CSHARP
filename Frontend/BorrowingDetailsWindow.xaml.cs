@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using Common;
+using FrontEnd.DataProviders;
 
 namespace FrontEnd
 {
@@ -16,20 +18,14 @@ namespace FrontEnd
         {
             InitializeComponent();
 
-            if (selectedBooks != null)
-            {
-                _selectedBooks = new List<AvailableBook>(selectedBooks);
-            }
-            else
-            {
-                _selectedBooks = new List<AvailableBook>();
-            }
+            _selectedBooks = selectedBooks;
 
             BorrowingDetailsDataGrid.ItemsSource = _selectedBooks;
         }
 
         private void BorrowingDetailsCancelButton_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = false;
             Close();
         }
 
@@ -37,8 +33,19 @@ namespace FrontEnd
         {
             if (ValidateSelection())
             {
-                MessageBox.Show("TODO");
-                return;
+                try
+                {
+                    List<long> iSBNS = new List<long>();
+                    _selectedBooks.ForEach(book => iSBNS.Add(book.ISBN));
+                    AvailableBookDataProvider.LendBooks(iSBNS.ToArray());
+                    this.DialogResult = true;
+                    Close();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
             }
         }
 
@@ -59,6 +66,12 @@ namespace FrontEnd
             if (!ClientShouldReturnBooks.SelectedDate.HasValue)
             {
                 MessageBox.Show("Please select the date, when the client should return the given book(s)!");
+                return false;
+            }
+
+            if (ClientShouldReturnBooks.SelectedDate <= DateTime.Now)
+            {
+                MessageBox.Show("Please select a date from future!");
                 return false;
             }
 

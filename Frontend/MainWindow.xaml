@@ -29,7 +29,7 @@
                     <TextBox x:Name="AvailableFilter" Grid.Column="2" Margin="10, 0, 0, 0" TextChanged="AvailableFilter_TextChanged" KeyDown="AvailableFilter_KeyDown" />
                 </Grid>
                 <DataGrid x:Name="AvailableBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue" CanUserAddRows="False"
-                                         SelectionChanged="AvailableBooksDataGrid_SelectionChanged" CanUserDeleteRows="false"
+                                         CanUserDeleteRows="false"
                               CanUserReorderColumns="True" AlternatingRowBackground="LightGray" />
                 <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                                 Content="Lend book(s)" Height="20" Click="LendBooks_Click" Grid.RowSpan="2" 
@@ -65,7 +65,7 @@
                     </Grid>
                     <DataGrid x:Name="BorrowedBooksDataGrid" Grid.Row="2" Margin="10" RowBackground="AliceBlue"
                               CanUserAddRows="False" CanUserReorderColumns="True" CanUserDeleteRows="False"
-                                    AutoGenerateColumns="True" SelectionChanged="BorrowedBooksDataGrid_SelectionChanged" AlternatingRowBackground="LightGray" />
+                                    AutoGenerateColumns="True" AlternatingRowBackground="LightGray" />
                     <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                             Content="Return book(s)" Height="20" Click="ReturnBooks_Click" Grid.RowSpan="2" 
                                             VerticalAlignment="Bottom" />       

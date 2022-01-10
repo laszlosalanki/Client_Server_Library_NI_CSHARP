@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Common;
+using FrontEnd.DataProviders;
 
 namespace FrontEnd
 {
@@ -33,12 +34,21 @@ namespace FrontEnd
         {
             if (ValidateBook())
             {
-                MessageBox.Show("TODO");
+                try
+                {
+                    AvailableBookDataProvider.AddBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate, null, null, null, null));
+                    this.DialogResult = true;
+                }
+                catch (InvalidOperationException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
 
         private void CancelClick(object sender, RoutedEventArgs arguments)
         {
+            this.DialogResult = false;
             Close();
         }
 
@@ -56,7 +66,29 @@ namespace FrontEnd
                 return false;
             }
 
-            // TODO: check if ReleaseDate is later than the actual date?
+            if (string.IsNullOrEmpty(Authors.Text))
+            {
+                MessageBox.Show("Authors should not be empty!");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Publisher.Text))
+            {
+                MessageBox.Show("Publisher should not be empty!");
+                return false;
+            }
+
+            if (!ReleaseDate.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Release date should not be empty!");
+                return false;
+            }
+
+            if (ReleaseDate.SelectedDate > DateTime.Now)
+            {
+                MessageBox.Show("Release date must be selected from the past!");
+                return false;
+            }
 
             // TODO: check if the ISBN number exists?
 

@@ -1,5 +1,4 @@
-﻿using Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Common;
+using FrontEnd.DataProviders;
 
 namespace FrontEnd
 {
@@ -27,14 +28,7 @@ namespace FrontEnd
         {
             InitializeComponent();
 
-            if (book != null)
-            {
-                _book = book;
-            }
-            else
-            {
-                _book = new AvailableBook();
-            }
+            _book = book;
 
             FillFields();
         }
@@ -50,12 +44,60 @@ namespace FrontEnd
 
         private void SaveFieldsClick(object sender, RoutedEventArgs arguments)
         {
-            MessageBox.Show("TODO");
+            if (ValidateChanges())
+            {
+                try
+                {
+                    AvailableBookDataProvider.UpdateBook(new Book(_book));
+                    this.DialogResult = true;
+                    Close();
+                }
+                catch (InvalidOperationException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
         private void CancelClick(object sender, RoutedEventArgs arguments)
         {
+            this.DialogResult = false;
             Close();
+        }
+
+        private bool ValidateChanges()
+        {
+            if (string.IsNullOrEmpty(Title.Text))
+            {
+                MessageBox.Show("Title should not be empty!");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Authors.Text))
+            {
+                MessageBox.Show("Authors should not be empty!");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Publisher.Text))
+            {
+                MessageBox.Show("Publisher should not be empty!");
+                return false;
+            }
+
+            if (!ReleaseDate.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Release date should not be empty!");
+                return false;
+            }
+
+            if (ReleaseDate.SelectedDate > DateTime.Now)
+            {
+                MessageBox.Show("Release date must be selected from the past!");
+                return false;
+            }
+
+            return true;
         }
     }
 }

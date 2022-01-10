@@ -1,0 +1,55 @@
+﻿@page "/borrowedbooks"
+
+<h1>Borrowed Books</h1>
+
+<br />
+
+<label for="first_name">Your first name:</label>
+<input id="first_name" type="text" />
+
+<br />
+
+<label for="last_name">Your last name:</label>
+<input id="last_name" type="text" />
+
+<button class="btn btn-info">Search</button>
+
+<br />
+
+@if (BorrowedBooks == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Authors</th>
+                <th>Publisher</th>
+                <th>Release Date</th>
+                <th>Borrowed</th>
+                <th>Should Return</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var borrowedBook in BorrowedBooks)
+            {
+                <tr>
+                    <td>@borrowedBook.ISBN</td>
+                    <td>@borrowedBook.Title</td>
+                    <td>@borrowedBook.Authors</td>
+                    <td>@borrowedBook.Publisher</td>
+                    <td>@borrowedBook.ReleaseDate</td>
+                    <td>@borrowedBook.BorrowDate</td>
+                    <td>@borrowedBook.ShouldReturn</td>
+                    <td>
+                        TODO: general api for getting info of any book
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

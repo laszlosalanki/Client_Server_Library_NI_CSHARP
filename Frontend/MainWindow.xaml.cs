@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Common;
+using FrontEnd.DataProviders;
 
 namespace FrontEnd
 {
@@ -24,6 +25,9 @@ namespace FrontEnd
     #pragma warning disable LRT001
     public partial class MainWindow : Window
     {
+        private List<AvailableBook> _availableBooks { get; set; }
+        private List<Book> _borrowedBooks { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,12 +45,14 @@ namespace FrontEnd
 
             // Borrowed
             BorrowedComboFilter.ItemsSource = Constants.BORROWED_FILTER_OPTIONS;
-            BorrowedComboFilter.SelectedIndex = Constants.DEFAULT_FILTER_INDEX;
+            BorrowedComboFilter.SelectedIndex = Constants.DEFAULT_FILTER_INDEX; // Select Title by default
         }
 
         private void SetAvailableBookList()
         {
-            AvailableBooksDataGrid.ItemsSource = Constants.TEMPORAL_DATA_AVAILABLE;
+            var books = AvailableBookDataProvider.GetAvailableBooks().Select(book => new AvailableBook(book)).ToList();
+            _availableBooks = books;
+            AvailableBooksDataGrid.ItemsSource = _availableBooks;
             AvailableBooksDataGrid.IsReadOnly = true;
             foreach (var column in AvailableBooksDataGrid.Columns)
             {
@@ -56,27 +62,20 @@ namespace FrontEnd
 
         private void SetBorrowedBookList()
         {
-            BorrowedBooksDataGrid.ItemsSource = Constants.TEMPORAL_DATA_BORROWED;
+            var books = BorrowedBookDataProvider.GetBorrowedBooks().ToList();
+            _borrowedBooks = books;
+            BorrowedBooksDataGrid.ItemsSource = _borrowedBooks;
+            BorrowedBooksDataGrid.IsReadOnly = true;
             foreach (var column in BorrowedBooksDataGrid.Columns)
             {
                 column.IsReadOnly = true;
             }
         }
 
-        private void AvailableBooksDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs arguments)
-        {
-            // TODO
-        }
-
-        private void BorrowedBooksDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs arguments)
-        {
-            // TODO
-        }
-
         private void LendBooks_Click(object sender, RoutedEventArgs arguments)
         {
             List<AvailableBook> selectedBooks = AvailableBooksDataGrid.SelectedItems.Cast<AvailableBook>().ToList();
-            if (selectedBooks.Count == 0)
+            if (!selectedBooks.Any())
             {
                 MessageBox.Show("No books selected!");
                 return;
@@ -85,37 +84,55 @@ namespace FrontEnd
             var window = new BorrowingDetailsWindow(selectedBooks);
             if (window.ShowDialog() ?? false)
             {
-                // TODO: update List
+                SetAvailableBookList();
+                SetBorrowedBookList();
             }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs arguments)
         {
             List<AvailableBook> selectedBooks = AvailableBooksDataGrid.SelectedItems.Cast<AvailableBook>().ToList();
-            if (selectedBooks.Count == 0)
+            if (selectedBooks.Count != 1)
+            {
+                MessageBox.Show("Select one book only!");
+                return;
+            }
+
+            try
+            {
+                // TODO: multiple deletions
+                AvailableBookDataProvider.DeleteBook(selectedBooks[0].ISBN);
+            }
+            catch (InvalidOperationException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            SetAvailableBookList();
+        }
+
+        private void ReturnBooks_Click(object sender, RoutedEventArgs arguments)
+        {
+            List<Book> selectedBooks = BorrowedBooksDataGrid.SelectedItems.Cast<Book>().ToList();
+            if (!selectedBooks.Any())
             {
                 MessageBox.Show("No books selected!");
                 return;
             }
 
-            // TODO: remove it from the server
+            var iSBNS = selectedBooks.Select(book => book.ISBN).ToList().ToArray();
 
-            List<AvailableBook> actualData = AvailableBooksDataGrid.Items.Cast<AvailableBook>().ToList();
-            foreach (var book in selectedBooks)
+            try
             {
-                actualData.Remove(book);
-            }
+                BorrowedBookDataProvider.ReturnBooks(iSBNS);
 
-            AvailableBooksDataGrid.ItemsSource = actualData;
-            foreach (var column in AvailableBooksDataGrid.Columns)
+                SetAvailableBookList();
+                SetBorrowedBookList();
+            }
+            catch (InvalidOperationException e)
             {
-                column.IsReadOnly = true;
+                MessageBox.Show(e.Message);
             }
-        }
-
-        private void ReturnBooks_Click(object sender, RoutedEventArgs arguments)
-        {
-            // TODO
         }
 
         private void ModifyBook_Click(object sender, RoutedEventArgs arguments)
@@ -130,7 +147,7 @@ namespace FrontEnd
             var window = new ModifyBookWindow(selectedBooks[0]);
             if (window.ShowDialog() ?? false)
             {
-                // TODO: update List
+                SetAvailableBookList();
             }
         }
 
@@ -139,7 +156,7 @@ namespace FrontEnd
             var window = new AddBookWindow();
             if (window.ShowDialog() ?? false)
             {
-                // TODO: update List
+                SetAvailableBookList();
             }
         }
 
@@ -149,27 +166,27 @@ namespace FrontEnd
             switch (AvailableComboFilter.Text)
             {
                 case "ISBN":
-                    newList = Constants.TEMPORAL_DATA_AVAILABLE
+                    newList = _availableBooks
                         .Where(x => x.ISBN.ToString().Contains(AvailableFilter.Text)).ToList();
                     break;
 
                 case "Title":
-                    newList = Constants.TEMPORAL_DATA_AVAILABLE
+                    newList = _availableBooks
                         .Where(x => x.Title.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Authors":
-                    newList = Constants.TEMPORAL_DATA_AVAILABLE
+                    newList = _availableBooks
                         .Where(x => x.Authors.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Publisher":
-                    newList = Constants.TEMPORAL_DATA_AVAILABLE
+                    newList = _availableBooks
                         .Where(x => x.Publisher.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
 
                 default:
-                    newList = Constants.TEMPORAL_DATA_AVAILABLE
+                    newList = _availableBooks
                         .Where(x => x.Title.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
             }
@@ -184,37 +201,37 @@ namespace FrontEnd
             switch (BorrowedComboFilter.Text)
             {
                 case "ISBN":
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.ISBN.ToString().Contains(BorrowedFilter.Text)).ToList();
                     break;
 
                 case "Title":
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.Title.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Authors":
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.Authors.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Publisher":
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.Publisher.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Borrower first name":
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.BorrowerFirstName.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Borrower last name":
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.BorrowerLastName.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 default:
-                    newList = Constants.TEMPORAL_DATA_BORROWED
+                    newList = _borrowedBooks
                         .Where(x => x.Title.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
             }
