@@ -4,6 +4,10 @@
 
 <br />
 
+<p>The books, you should return in less then <span style="color: #FF0000;">3</span> days are displayed in <span style="color: #FFA07A;">different color</span>.</p>
+
+<br />
+
 <a href="/usernameinput" class="btn btn-primary">Other user</a>
 
 <br />
@@ -32,14 +36,28 @@ else
             <tbody>
                 @foreach (var book in Books)
                 {
-                    <tr>
-                        <td>@book.ISBN</td>
-                        <td>@book.Title</td>
-                        <td>@book.Authors</td>
-                        <td>
-                            <a href="@($"borrowedbook/{book.ISBN}")" class="btn btn-info table-btn">Info</a>
-                        </td>
-                    </tr>
+                    if (book.ShouldReturn < DateTime.Now.AddDays(3))
+                    {
+                        <tr style="background-color: #FFA07A;">
+                            <td>@book.ISBN</td>
+                            <td>@book.Title</td>
+                            <td>@book.Authors</td>
+                            <td>
+                                <a href="@($"borrowedbook/{book.ISBN}")" class="btn btn-info table-btn">Info</a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@book.ISBN</td>
+                            <td>@book.Title</td>
+                            <td>@book.Authors</td>
+                            <td>
+                                <a href="@($"borrowedbook/{book.ISBN}")" class="btn btn-info table-btn">Info</a>
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>   

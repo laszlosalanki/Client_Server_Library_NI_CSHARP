@@ -4,6 +4,10 @@
 
 <br />
 
+<p><span style="color: #FFA07A;">Different coloring</span> means you have less then <span style="color: #FF0000;">3</span> days to return this book.</p>
+
+<br />
+
 <a href="/usernameinput" class="btn btn-primary">Other user</a>
 
 <br />
@@ -16,65 +20,72 @@
 else
 {
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">ISBN</label>
+        <label class="col-sm-4 col-form-label">ISBN:</label>
         <div class="col-sm-8">
             <label type="text" class="form-control-plaintext">@Book.ISBN</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Title</label>
+        <label class="col-sm-4 col-form-label">Title:</label>
         <div class="col-sm-8">
             <label type="text" class="form-control-plaintext">@Book.Title</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Authors</label>
+        <label class="col-sm-4 col-form-label">Authors:</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.Authors</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Publisher</label>
+        <label class="col-sm-4 col-form-label">Publisher:</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.Publisher</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Release Date</label>
+        <label class="col-sm-4 col-form-label">Release Date:</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.ReleaseDate.ToString()</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Borrower First Name</label>
+        <label class="col-sm-4 col-form-label">Borrower First Name:</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.BorrowerFirstName</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Borrower Last Name</label>
+        <label class="col-sm-4 col-form-label">Borrower Last Name:</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.BorrowerLastName</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Borrow Date</label>
+        <label class="col-sm-4 col-form-label">Borrow Date:</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.BorrowDate.ToString()</label>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Should Return</label>
+        <label class="col-sm-4 col-form-label">Should Return:</label>
         <div class="col-sm-8">
-            <label type="text" readonly class="form-control-plaintext">@Book.ShouldReturn.ToString()</label>
+            @if (Book.ShouldReturn < DateTime.Now.AddDays(3))
+            {
+                <label type="text" style="color: #FFA07A;" readonly class="form-control-plaintext">@Book.ShouldReturn.ToString()</label>
+            }
+            else
+            {
+                <label type="text" readonly class="form-control-plaintext">@Book.ShouldReturn.ToString()</label>
+            }
         </div>
     </div>
 }
