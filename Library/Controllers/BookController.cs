@@ -2,6 +2,7 @@ using System;
 using Common;
 using Microsoft.AspNetCore.Mvc;
 
+[ApiController]
 [Route("api/books/")]
 public class BookController : Controller
 {
@@ -77,7 +78,7 @@ public class BookController : Controller
     }
 
     [HttpPost] [Route("add")]
-    public ActionResult<Book> AddBook(Book bookToAdd)
+    public ActionResult<Book> AddBook([FromBody] Book bookToAdd)
     {
         try
         {
@@ -110,14 +111,14 @@ public class BookController : Controller
     }
 
     [HttpDelete] [Route("deleteBooks")]
-    public ActionResult DeleteBooks(long[] isbn)
+    public ActionResult DeleteBooks([FromBody] long[] isbn)
     {
         this._bookRepo.DeleteBooks(isbn);
         return Ok("Deletion operation finished.");
     }
 
     [HttpPut] [Route("update")]
-    public ActionResult<Book> UpdateBook(Book bookToUpdate)
+    public ActionResult<Book> UpdateBook([FromBody] Book bookToUpdate)
     {
         try
         {
@@ -130,7 +131,7 @@ public class BookController : Controller
     }
 
     [HttpPut] [Route("returnBooks")]
-    public ActionResult ReturnBooks(long[] isbnNumbers)
+    public ActionResult ReturnBooks([FromBody] long[] isbnNumbers)
     {
         try
         {
@@ -144,7 +145,7 @@ public class BookController : Controller
     }
 
     [HttpPut] [Route("lendBooks")]
-    public ActionResult LendBooks(Book[] booksToLend)
+    public ActionResult LendBooks([FromBody] Book[] booksToLend)
     {
         try
         {
