@@ -2,32 +2,41 @@
 
 <h1>Your borrowed books</h1>
 
+<br />
+
 @if (Books == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ISBN</th>
-                <th>Title</th>
-                <th>Authors</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Books)
-            {
+    if (Books.Length == 0)
+    {
+        <p>You don't have borrowed books.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@book.ISBN</td>
-                    <td>@book.Title</td>
-                    <td>@book.Authors</td>
-                    <td>
-                        <a href="@($"borrowedbook/{book.ISBN}")" class="btn btn-info table-btn">Info</a>
-                    </td>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Authors</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var book in Books)
+                {
+                    <tr>
+                        <td>@book.ISBN</td>
+                        <td>@book.Title</td>
+                        <td>@book.Authors</td>
+                        <td>
+                            <a href="@($"borrowedbook/{book.ISBN}")" class="btn btn-info table-btn">Info</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>   
+    }
 }
