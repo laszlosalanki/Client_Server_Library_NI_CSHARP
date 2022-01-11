@@ -7,17 +7,13 @@
         mc:Ignorable="d"
         Title="Add book" Height="350" Width="500" Icon="/favicon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" KeyDown="Window_KeyDown">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="127*"/>
-            <ColumnDefinition Width="373*"/>
-        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -48,10 +44,10 @@
             <DatePicker x:Name="ReleaseDate" Grid.Row="4" Grid.Column="1" Margin="10" ToolTip="Release date of the book." />
         </Grid>
 
-        <Button x:Name="CancelButton" Width="100" HorizontalAlignment="Right" Margin="0,304,10,10"
-                Content="Cancel" Click="CancelClick" Grid.Column="1" Grid.RowSpan="2" />
+        <Button x:Name="CancelButton" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="10, 0, 10, 10"
+                Content="Cancel" Click="CancelClick" />
 
-        <Button x:Name="AddButton" Width="100" HorizontalAlignment="Right" Margin="0,304,120,10"
-                Content="Add" Click="AddClick" Grid.Column="1" Grid.RowSpan="2" />
+        <Button x:Name="AddButton" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="10, 0, 120, 10"
+                Content="Add" Click="AddClick" />
     </Grid>
 </Window>

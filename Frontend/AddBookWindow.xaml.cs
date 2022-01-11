@@ -38,7 +38,7 @@ namespace FrontEnd
                 {
                     if (AvailableBookDataProvider.IsIsbnAvailable(long.Parse(ISBN.Text)))
                     {
-                        AvailableBookDataProvider.AddBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate, null, null, null, null));
+                        AvailableBookDataProvider.AddBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate.Value, null, null, null, null));
                         this.DialogResult = true;
                     }
                     else
