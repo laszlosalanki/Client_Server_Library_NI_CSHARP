@@ -7,6 +7,7 @@ namespace Common
 #pragma warning disable LRT001
     public class Book
     {
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.None)]
         [Key] public long ISBN { get; set; } // the id of the book
         public string Title { get; set; } // name of the book
         public string Authors { get; set; } // the author of the book
