@@ -124,6 +124,7 @@ public class BookRepository : IBookRepository
             existingBook.Publisher = bookToUpdate.Publisher;
             existingBook.ReleaseDate = bookToUpdate.ReleaseDate;
             this._context.Books.Update(existingBook);
+            this._context.SaveChanges();
             return bookToUpdate;
         }
         return null;
