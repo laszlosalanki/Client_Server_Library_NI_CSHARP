@@ -1,0 +1,33 @@
+﻿@page "/borrowedbooks/{BorrowerName}"
+
+<h1>Your borrowed books</h1>
+
+@if (Books == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Authors</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Books)
+            {
+                <tr>
+                    <td>@book.ISBN</td>
+                    <td>@book.Title</td>
+                    <td>@book.Authors</td>
+                    <td>
+                        <a href="@($"borrowedbook/{book.ISBN}")" class="btn btn-info table-btn">Info</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

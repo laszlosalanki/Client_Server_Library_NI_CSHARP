@@ -5,17 +5,19 @@ using System.Net.Http.Json;
 namespace ClientFrontEnd.Pages
 {
 #pragma warning disable LRT001
-    public partial class BorrowedBooksList
+    public partial class BorrowedBooks
     {
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        public Book[] BorrowedBooks { get; set; }
+        [Parameter]
+        public string BorrowerName { get; set; }
+
+        public Book[] Books { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            // TODO: client should see the related books only
-            BorrowedBooks = await HttpClient.GetFromJsonAsync<Book[]>("books/borrowed");
+            Books = await HttpClient.GetFromJsonAsync<Book[]>($"books/borrowedBy/{BorrowerName}");
             await base.OnInitializedAsync();
         }
     }

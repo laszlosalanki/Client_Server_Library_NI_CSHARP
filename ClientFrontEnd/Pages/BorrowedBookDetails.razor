@@ -1,4 +1,4 @@
-﻿@page "/availablebooks/{AvailableISBN}"
+﻿@page "/borrowedbook/{BorrowedISBN}"
 
 <h1>Book Info</h1>
 
@@ -40,6 +40,34 @@ else
         <label class="col-sm-4 col-form-label">Release Date</label>
         <div class="col-sm-8">
             <label type="text" readonly class="form-control-plaintext">@Book.ReleaseDate.ToString()</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Borrower First Name</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.BorrowerFirstName</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Borrower Last Name</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.BorrowerLastName</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Borrow Date</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.BorrowDate.ToString()</label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Should Return</label>
+        <div class="col-sm-8">
+            <label type="text" readonly class="form-control-plaintext">@Book.ShouldReturn.ToString()</label>
         </div>
     </div>
 }

@@ -5,19 +5,19 @@ using System.Net.Http.Json;
 namespace ClientFrontEnd.Pages
 {
 #pragma warning disable LRT001
-    public partial class AvailableBookDetails
+    public partial class BorrowedBookDetails
     {
         [Inject]
         public HttpClient HttpClient { get; set; }
 
         [Parameter]
-        public string AvailableISBN{ get; set; }
+        public string BorrowedISBN { get; set; }
 
-        public Book Book{ get; set; }
+        public Book Book { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Book = await HttpClient.GetFromJsonAsync<Book>($"books/{AvailableISBN}");
+            Book = await HttpClient.GetFromJsonAsync<Book>($"books/{BorrowedISBN}");
             await base.OnInitializedAsync();
         }
     }

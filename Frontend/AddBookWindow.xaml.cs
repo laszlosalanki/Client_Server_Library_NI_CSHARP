@@ -36,8 +36,16 @@ namespace FrontEnd
             {
                 try
                 {
-                    AvailableBookDataProvider.AddBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate, null, null, null, null));
-                    this.DialogResult = true;
+                    if (!AvailableBookDataProvider.IsIsbnExists(long.Parse(ISBN.Text)))
+                    {
+                        AvailableBookDataProvider.AddBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate, null, null, null, null));
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("ISBN number is already registered.");
+                        this.DialogResult = false;
+                    }
                 }
                 catch (InvalidOperationException e)
                 {
@@ -89,8 +97,6 @@ namespace FrontEnd
                 MessageBox.Show("Release date must be selected from the past!");
                 return false;
             }
-
-            // TODO: check if the ISBN number exists?
 
             return true;
         }

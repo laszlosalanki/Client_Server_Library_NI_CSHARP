@@ -18,7 +18,7 @@ namespace FrontEnd.DataProviders
         {
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync(new Uri(_url + "borrowed")).Result;
+                var response = client.GetAsync(new Uri(_url + "borrowedAll")).Result;
 
                 if (response.IsSuccessStatusCode)
                 {

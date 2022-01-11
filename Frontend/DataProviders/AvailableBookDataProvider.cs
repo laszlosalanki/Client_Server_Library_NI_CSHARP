@@ -18,13 +18,29 @@ namespace FrontEnd.DataProviders
         {
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync(new Uri($"{_url}available")).Result;
+                var response = client.GetAsync(new Uri($"{_url}availableAll")).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
                     var rawData = response.Content.ReadAsStringAsync().Result;
                     var books = JsonConvert.DeserializeObject<IEnumerable<Book>>(rawData);
                     return books;
+                }
+
+                throw new InvalidOperationException(response.StatusCode.ToString());
+            }
+        }
+
+        public static bool IsIsbnExists(long iSBN)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync(new Uri($"{_url}isbn/{iSBN}")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var rawData = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<bool>(rawData);
+                    return result;
                 }
 
                 throw new InvalidOperationException(response.StatusCode.ToString());
@@ -70,6 +86,17 @@ namespace FrontEnd.DataProviders
                 {
                     throw new InvalidOperationException(response.StatusCode.ToString());
                 }
+            }
+        }
+
+        public static void DeleteBooks(long[] iSBNS)
+        {
+            using (var client = new HttpClient())
+            {
+                var rawData = JsonConvert.SerializeObject(iSBNS);
+                var content = new StringContent(rawData, Encoding.UTF8, "application/json");
+
+                // TODO
             }
         }
 
