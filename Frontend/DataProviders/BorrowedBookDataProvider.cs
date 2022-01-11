@@ -38,7 +38,11 @@ namespace FrontEnd.DataProviders
                 var rawData = JsonConvert.SerializeObject(iSBNS);
                 var content = new StringContent(rawData, Encoding.UTF8, "application/json");
 
-                var response = client.PutAsync(new Uri($"{_url}return"), content).Result;
+                var response = client.PutAsync(new Uri($"{_url}returnBooks"), content).Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new InvalidOperationException(response.StatusCode.ToString());
+                }
             }
         }
     }

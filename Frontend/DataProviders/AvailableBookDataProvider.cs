@@ -31,7 +31,7 @@ namespace FrontEnd.DataProviders
             }
         }
 
-        public static bool IsIsbnExists(long iSBN)
+        public static bool IsIsbnAvailable(long iSBN)
         {
             using (var client = new HttpClient())
             {
@@ -96,18 +96,23 @@ namespace FrontEnd.DataProviders
                 var rawData = JsonConvert.SerializeObject(iSBNS);
                 var content = new StringContent(rawData, Encoding.UTF8, "application/json");
 
-                // TODO
+                // TODO: can't add content to call
+                var response = client.DeleteAsync(new Uri($"{_url}deleteBooks")).Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new InvalidOperationException(response.StatusCode.ToString());
+                }
             }
         }
 
-        public static void LendBooks(long[] iSBNS)
+        public static void LendBooks(Book[] books)
         {
             using (var client = new HttpClient())
             {
-                var rawData = JsonConvert.SerializeObject(iSBNS);
+                var rawData = JsonConvert.SerializeObject(books);
                 var content = new StringContent(rawData, Encoding.UTF8, "application/json");
 
-                var response = client.PutAsync(new Uri($"{_url}lend"), content).Result;
+                var response = client.PutAsync(new Uri($"{_url}lendBooks"), content).Result;
 
                 if (!response.IsSuccessStatusCode)
                 {

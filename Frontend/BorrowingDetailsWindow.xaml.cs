@@ -35,9 +35,12 @@ namespace FrontEnd
             {
                 try
                 {
-                    List<long> iSBNS = new List<long>();
-                    _selectedBooks.ForEach(book => iSBNS.Add(book.ISBN));
-                    AvailableBookDataProvider.LendBooks(iSBNS.ToArray());
+                    List<Book> dateUpdatedSelectedBooks = new List<Book>();
+                    for (int i = 0; i < _selectedBooks.Count; i++)
+                    {
+                        dateUpdatedSelectedBooks.Add(new Book(_selectedBooks[i], ClientFirstName.Text, ClientLastName.Text, DateTime.Now, ClientShouldReturnBooks.SelectedDate.Value));
+                    }
+                    AvailableBookDataProvider.LendBooks(dateUpdatedSelectedBooks.ToArray());
                     this.DialogResult = true;
                     Close();
                 }

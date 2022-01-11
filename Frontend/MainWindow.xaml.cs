@@ -25,8 +25,8 @@ namespace FrontEnd
     #pragma warning disable LRT001
     public partial class MainWindow : Window
     {
-        private List<AvailableBook> _availableBooks { get; set; }
-        private List<Book> _borrowedBooks { get; set; }
+        private List<AvailableBook> AvailableBooks { get; set; }
+        private List<Book> BorrowedBooks { get; set; }
 
         public MainWindow()
         {
@@ -51,8 +51,8 @@ namespace FrontEnd
         private void SetAvailableBookList()
         {
             var books = AvailableBookDataProvider.GetAvailableBooks().Select(book => new AvailableBook(book)).ToList();
-            _availableBooks = books;
-            AvailableBooksDataGrid.ItemsSource = _availableBooks;
+            AvailableBooks = books;
+            AvailableBooksDataGrid.ItemsSource = AvailableBooks;
             AvailableBooksDataGrid.IsReadOnly = true;
             foreach (var column in AvailableBooksDataGrid.Columns)
             {
@@ -63,8 +63,8 @@ namespace FrontEnd
         private void SetBorrowedBookList()
         {
             var books = BorrowedBookDataProvider.GetBorrowedBooks().ToList();
-            _borrowedBooks = books;
-            BorrowedBooksDataGrid.ItemsSource = _borrowedBooks;
+            BorrowedBooks = books;
+            BorrowedBooksDataGrid.ItemsSource = BorrowedBooks;
             BorrowedBooksDataGrid.IsReadOnly = true;
             foreach (var column in BorrowedBooksDataGrid.Columns)
             {
@@ -92,23 +92,22 @@ namespace FrontEnd
         private void DeleteButton_Click(object sender, RoutedEventArgs arguments)
         {
             List<AvailableBook> selectedBooks = AvailableBooksDataGrid.SelectedItems.Cast<AvailableBook>().ToList();
-            if (selectedBooks.Count != 1)
+            if (!selectedBooks.Any())
             {
-                MessageBox.Show("Select one book only!");
+                MessageBox.Show("No books selected!");
                 return;
             }
 
             try
             {
-                // TODO: multiple deletions
-                AvailableBookDataProvider.DeleteBook(selectedBooks[0].ISBN);
+                var iSBNS = selectedBooks.Select(book => book.ISBN).ToArray();
+                AvailableBookDataProvider.DeleteBooks(iSBNS);
+                SetAvailableBookList();
             }
             catch (InvalidOperationException e)
             {
                 MessageBox.Show(e.Message);
             }
-
-            SetAvailableBookList();
         }
 
         private void ReturnBooks_Click(object sender, RoutedEventArgs arguments)
@@ -120,7 +119,7 @@ namespace FrontEnd
                 return;
             }
 
-            var iSBNS = selectedBooks.Select(book => book.ISBN).ToList().ToArray();
+            var iSBNS = selectedBooks.Select(book => book.ISBN).ToArray();
 
             try
             {
@@ -166,27 +165,27 @@ namespace FrontEnd
             switch (AvailableComboFilter.Text)
             {
                 case "ISBN":
-                    newList = _availableBooks
+                    newList = AvailableBooks
                         .Where(x => x.ISBN.ToString().Contains(AvailableFilter.Text)).ToList();
                     break;
 
                 case "Title":
-                    newList = _availableBooks
+                    newList = AvailableBooks
                         .Where(x => x.Title.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Authors":
-                    newList = _availableBooks
+                    newList = AvailableBooks
                         .Where(x => x.Authors.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Publisher":
-                    newList = _availableBooks
+                    newList = AvailableBooks
                         .Where(x => x.Publisher.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
 
                 default:
-                    newList = _availableBooks
+                    newList = AvailableBooks
                         .Where(x => x.Title.ToLower().Contains(AvailableFilter.Text.ToLower())).ToList();
                     break;
             }
@@ -201,37 +200,37 @@ namespace FrontEnd
             switch (BorrowedComboFilter.Text)
             {
                 case "ISBN":
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.ISBN.ToString().Contains(BorrowedFilter.Text)).ToList();
                     break;
 
                 case "Title":
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.Title.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Authors":
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.Authors.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Publisher":
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.Publisher.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Borrower first name":
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.BorrowerFirstName.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 case "Borrower last name":
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.BorrowerLastName.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
 
                 default:
-                    newList = _borrowedBooks
+                    newList = BorrowedBooks
                         .Where(x => x.Title.ToLower().Contains(BorrowedFilter.Text.ToLower())).ToList();
                     break;
             }

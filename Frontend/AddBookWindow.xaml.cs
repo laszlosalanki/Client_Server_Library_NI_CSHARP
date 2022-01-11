@@ -36,7 +36,7 @@ namespace FrontEnd
             {
                 try
                 {
-                    if (!AvailableBookDataProvider.IsIsbnExists(long.Parse(ISBN.Text)))
+                    if (AvailableBookDataProvider.IsIsbnAvailable(long.Parse(ISBN.Text)))
                     {
                         AvailableBookDataProvider.AddBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate, null, null, null, null));
                         this.DialogResult = true;
@@ -49,6 +49,7 @@ namespace FrontEnd
                 }
                 catch (InvalidOperationException e)
                 {
+                    this.DialogResult = false;
                     MessageBox.Show(e.Message);
                 }
             }

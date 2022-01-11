@@ -40,5 +40,18 @@ namespace Common
             Publisher = availableBook.Publisher;
             ReleaseDate = availableBook.ReleaseDate;
         }
+
+        public Book(AvailableBook availableBook, string borrowerFistName, string borrowerLastName, DateTime borrowDate, DateTime shouldReturn)
+        {
+            ISBN = availableBook.ISBN;
+            Title = availableBook.Title;
+            Authors = availableBook.Authors;
+            Publisher = availableBook.Publisher;
+            ReleaseDate = availableBook.ReleaseDate;
+            BorrowerFirstName = borrowerFistName;
+            BorrowerLastName = borrowerLastName;
+            BorrowDate = borrowDate;
+            ShouldReturn = shouldReturn;
+        }
     }
 }
