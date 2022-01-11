@@ -96,8 +96,12 @@ namespace FrontEnd.DataProviders
                 var rawData = JsonConvert.SerializeObject(iSBNS);
                 var content = new StringContent(rawData, Encoding.UTF8, "application/json");
 
-                // TODO: can't add content to call
-                var response = client.DeleteAsync(new Uri($"{_url}deleteBooks")).Result;
+                HttpRequestMessage message = new HttpRequestMessage();
+                message.Method = HttpMethod.Delete;
+                message.RequestUri = new Uri($"{_url}deleteBooks");
+                message.Content = content;
+
+                var response = client.Send(message);
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new InvalidOperationException(response.StatusCode.ToString());

@@ -50,25 +50,39 @@ namespace FrontEnd
 
         private void SetAvailableBookList()
         {
-            var books = AvailableBookDataProvider.GetAvailableBooks().Select(book => new AvailableBook(book)).ToList();
-            AvailableBooks = books;
-            AvailableBooksDataGrid.ItemsSource = AvailableBooks;
-            AvailableBooksDataGrid.IsReadOnly = true;
-            foreach (var column in AvailableBooksDataGrid.Columns)
+            try
             {
-                column.IsReadOnly = true;
+                var books = AvailableBookDataProvider.GetAvailableBooks().Select(book => new AvailableBook(book)).ToList();
+                AvailableBooks = books;
+                AvailableBooksDataGrid.ItemsSource = AvailableBooks;
+                AvailableBooksDataGrid.IsReadOnly = true;
+                foreach (var column in AvailableBooksDataGrid.Columns)
+                {
+                    column.IsReadOnly = true;
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
         private void SetBorrowedBookList()
         {
-            var books = BorrowedBookDataProvider.GetBorrowedBooks().ToList();
-            BorrowedBooks = books;
-            BorrowedBooksDataGrid.ItemsSource = BorrowedBooks;
-            BorrowedBooksDataGrid.IsReadOnly = true;
-            foreach (var column in BorrowedBooksDataGrid.Columns)
+            try
             {
-                column.IsReadOnly = true;
+                var books = BorrowedBookDataProvider.GetBorrowedBooks().ToList();
+                BorrowedBooks = books;
+                BorrowedBooksDataGrid.ItemsSource = BorrowedBooks;
+                BorrowedBooksDataGrid.IsReadOnly = true;
+                foreach (var column in BorrowedBooksDataGrid.Columns)
+                {
+                    column.IsReadOnly = true;
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -253,6 +267,16 @@ namespace FrontEnd
             {
                 AvailableFilter.Text = string.Empty;
             }
+        }
+
+        private void RefreshAvailableButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetAvailableBookList();
+        }
+
+        private void RefreshBorrowedButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetBorrowedBookList();
         }
     }
 }

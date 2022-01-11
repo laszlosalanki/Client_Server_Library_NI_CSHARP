@@ -24,6 +24,10 @@
 
     public string OnClick()
     {
-        return $"borrowedbooks/{FirstName}{LastName}";
+        if (!string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName))
+        {
+            return $"borrowedbooks/{FirstName.ToLower()}{LastName.ToLower()}";
+        }
+        return "/usernameinput";
     }
 }

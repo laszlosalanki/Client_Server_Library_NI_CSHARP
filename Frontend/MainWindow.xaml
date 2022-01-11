@@ -40,6 +40,8 @@
                                                 Content="Modify book" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="ModifyBook_Click" />
                 <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0, 0, 340, 10"
                                                 Content="Add book" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="AddBook_Click" />
+                <Button Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="10, 0, 0, 10"
+                                                Content="Refresh" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="RefreshAvailableButton_Click" />
             </Grid>
             </TabItem>
             <TabItem Header="Borrowed books">
@@ -68,8 +70,10 @@
                                     AutoGenerateColumns="True" AlternatingRowBackground="LightGray" />
                     <Button Grid.Row="3" Width="100" HorizontalAlignment="Right" Margin="0,0,10,10"
                                             Content="Return book(s)" Height="20" Click="ReturnBooks_Click" Grid.RowSpan="2" 
-                                            VerticalAlignment="Bottom" />       
-                </Grid>
+                                            VerticalAlignment="Bottom" />
+                    <Button Grid.Row="3" Width="100" HorizontalAlignment="Left" Margin="10, 0, 0, 10"
+                                                Content="Refresh" Height="20" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="RefreshBorrowedButton_Click" />
+            </Grid>
             </TabItem>
         </TabControl>
 </Window>
