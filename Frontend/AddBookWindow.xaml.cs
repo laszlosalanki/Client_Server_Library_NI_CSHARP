@@ -32,7 +32,7 @@ namespace FrontEnd
 
         private void AddClick(object sender, RoutedEventArgs arguments)
         {
-            if (ValidateBook())
+            if (ValidateInputFields.ValidateAddBookWindowFields(ISBN, Title, Authors, Publisher, ReleaseDate))
             {
                 try
                 {
@@ -61,45 +61,34 @@ namespace FrontEnd
             Close();
         }
 
-        private bool ValidateBook()
+        private void ISBN_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(ISBN.Text))
+            foreach (var ch in ISBN.Text)
             {
-                MessageBox.Show("ISBN should not be empty!");
-                return false;
+                if (!char.IsDigit(ch))
+                {
+                    if (ISBN.Text.Length == 1)
+                    {
+                        ISBN.Text = string.Empty;
+                    }
+                    else
+                    {
+                        ISBN.Text = ISBN.Text[.. (ISBN.Text.Length - 1)];
+                        ISBN.SelectionStart = ISBN.Text.Length;
+                        ISBN.SelectionLength = 0;
+                    }
+                    MessageBox.Show("Enter decimal numbers only!");
+                }
             }
+        }
 
-            if (string.IsNullOrEmpty(Title.Text))
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
             {
-                MessageBox.Show("Title should not be empty!");
-                return false;
+                this.DialogResult = false;
+                Close();
             }
-
-            if (string.IsNullOrEmpty(Authors.Text))
-            {
-                MessageBox.Show("Authors should not be empty!");
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(Publisher.Text))
-            {
-                MessageBox.Show("Publisher should not be empty!");
-                return false;
-            }
-
-            if (!ReleaseDate.SelectedDate.HasValue)
-            {
-                MessageBox.Show("Release date should not be empty!");
-                return false;
-            }
-
-            if (ReleaseDate.SelectedDate > DateTime.Now)
-            {
-                MessageBox.Show("Release date must be selected from the past!");
-                return false;
-            }
-
-            return true;
         }
     }
 }

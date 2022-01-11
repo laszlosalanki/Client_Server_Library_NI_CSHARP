@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrontEnd"
         mc:Ignorable="d"
-        Title="Modify book" Height="350" Width="500" Icon="/favicon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Modify book" Height="350" Width="500" Icon="/favicon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" KeyDown="Window_KeyDown">
     <Grid>
         
         <Grid.RowDefinitions>
@@ -32,13 +32,13 @@
             <TextBox x:Name="ISBN" Grid.Row="0" Grid.Column="1" Margin="10" ToolTip="ISBN number of the book." IsEnabled="False" />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Title:" Margin="10" />
-            <TextBox x:Name="Title" Grid.Row="1" Grid.Column="1" Margin="10" ToolTip="Title of the book." />
+            <TextBox x:Name="Title" Grid.Row="1" MaxLines="1" Grid.Column="1" Margin="10" ToolTip="Title of the book." />
 
             <Label Grid.Row="2" Grid.Column="0" Content="Authors:" Margin="10" />
-            <TextBox x:Name="Authors" Grid.Row="2" Grid.Column="1" Margin="10" ToolTip="Authors of the book." />
+            <TextBox x:Name="Authors" Grid.Row="2" MaxLines="1" Grid.Column="1" Margin="10" ToolTip="Authors of the book." />
 
             <Label Grid.Row="3" Grid.Column="0" Content="Publisher:" Margin="10" />
-            <TextBox x:Name="Publisher" Grid.Row="3" Grid.Column="1" Margin="10" ToolTip="Publisher of the book." />
+            <TextBox x:Name="Publisher" Grid.Row="3" MaxLines="1" Grid.Column="1" Margin="10" ToolTip="Publisher of the book." />
 
             <Label Grid.Row="4" Grid.Column="0" Content="Release date:" Margin="10" />
             <DatePicker x:Name="ReleaseDate" Grid.Row="4" Grid.Column="1" Margin="10" ToolTip="Release date of the book." />

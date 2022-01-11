@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrontEnd"
         mc:Ignorable="d"
-        Title="Add book" Height="350" Width="500" Icon="/favicon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Add book" Height="350" Width="500" Icon="/favicon.ico" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" KeyDown="Window_KeyDown">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="127*"/>
+            <ColumnDefinition Width="373*"/>
+        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -29,25 +33,25 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="ISBN*:" Margin="10" />
-            <TextBox x:Name="ISBN" Grid.Row="0" Grid.Column="1" Margin="10" ToolTip="ISBN number of the book." />
+            <TextBox x:Name="ISBN" TextChanged="ISBN_TextChanged" MaxLines="1" MaxLength="13" Grid.Row="0" Grid.Column="1" Margin="10" ToolTip="ISBN number of the book." />
 
             <Label Grid.Row="1" Grid.Column="0" Content="Title*:" Margin="10" />
-            <TextBox x:Name="Title" Grid.Row="1" Grid.Column="1" Margin="10" ToolTip="Title of the book." />
+            <TextBox x:Name="Title" Grid.Row="1" MaxLines="1" Grid.Column="1" Margin="10" ToolTip="Title of the book." />
 
             <Label Grid.Row="2" Grid.Column="0" Content="Authors:" Margin="10" />
-            <TextBox x:Name="Authors" Grid.Row="2" Grid.Column="1" Margin="10" ToolTip="Authors of the book." />
+            <TextBox x:Name="Authors" Grid.Row="2" MaxLines="1" Grid.Column="1" Margin="10" ToolTip="Authors of the book." />
 
             <Label Grid.Row="3" Grid.Column="0" Content="Publisher:" Margin="10" />
-            <TextBox x:Name="Publisher" Grid.Row="3" Grid.Column="1" Margin="10" ToolTip="Publisher of the book." />
+            <TextBox x:Name="Publisher" Grid.Row="3" MaxLines="1" Grid.Column="1" Margin="10" ToolTip="Publisher of the book." />
 
             <Label Grid.Row="4" Grid.Column="0" Content="Release date:" Margin="10" />
             <DatePicker x:Name="ReleaseDate" Grid.Row="4" Grid.Column="1" Margin="10" ToolTip="Release date of the book." />
         </Grid>
 
-        <Button x:Name="CancelButton" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="10, 0, 10, 10"
-                Content="Cancel" Click="CancelClick" />
+        <Button x:Name="CancelButton" Width="100" HorizontalAlignment="Right" Margin="0,304,10,10"
+                Content="Cancel" Click="CancelClick" Grid.Column="1" Grid.RowSpan="2" />
 
-        <Button x:Name="AddButton" Grid.Row="1" Width="100" HorizontalAlignment="Right" Margin="10, 0, 120, 10"
-                Content="Add" Click="AddClick" />
+        <Button x:Name="AddButton" Width="100" HorizontalAlignment="Right" Margin="0,304,120,10"
+                Content="Add" Click="AddClick" Grid.Column="1" Grid.RowSpan="2" />
     </Grid>
 </Window>

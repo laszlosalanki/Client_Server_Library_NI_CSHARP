@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using Common;
 using FrontEnd.DataProviders;
 
@@ -31,7 +32,7 @@ namespace FrontEnd
 
         private void LendBooks_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateSelection())
+            if (ValidateInputFields.ValidateLendBooksWindowFields(ClientFirstName, ClientLastName, ClientShouldReturnBooks))
             {
                 try
                 {
@@ -52,33 +53,13 @@ namespace FrontEnd
             }
         }
 
-        private bool ValidateSelection()
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (string.IsNullOrEmpty(ClientFirstName.Text))
+            if (e.Key == Key.Escape)
             {
-                MessageBox.Show("Field 'First Name' should not be empty!");
-                return false;
+                this.DialogResult = false;
+                Close();
             }
-
-            if (string.IsNullOrEmpty(ClientLastName.Text))
-            {
-                MessageBox.Show("Field 'Last Name' should not be empty!");
-                return false;
-            }
-
-            if (!ClientShouldReturnBooks.SelectedDate.HasValue)
-            {
-                MessageBox.Show("Please select the date, when the client should return the given book(s)!");
-                return false;
-            }
-
-            if (ClientShouldReturnBooks.SelectedDate <= DateTime.Now)
-            {
-                MessageBox.Show("Please select a date from future!");
-                return false;
-            }
-
-            return true;
         }
     }
 }
