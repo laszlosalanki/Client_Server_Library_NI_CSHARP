@@ -2,32 +2,41 @@
 
 <h1>Available Books</h1>
 
+<br />
+
 @if (AvailableBooks == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ISBN</th>
-                <th>Title</th>
-                <th>Authors</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var availableBook in AvailableBooks)
-            {
+    if (AvailableBooks.Length == 0)
+    {
+        <p>There are no available books.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@availableBook.ISBN</td>
-                    <td>@availableBook.Title</td>
-                    <td>@availableBook.Authors</td>
-                    <td>
-                        <a href="@($"availablebooks/{availableBook.ISBN}")" class="btn btn-info table-btn">Info</a>
-                    </td>
+                    <th>ISBN</th>
+                    <th>Title</th>
+                    <th>Authors</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var availableBook in AvailableBooks)
+                {
+                    <tr>
+                        <td>@availableBook.ISBN</td>
+                        <td>@availableBook.Title</td>
+                        <td>@availableBook.Authors</td>
+                        <td>
+                            <a href="@($"availablebooks/{availableBook.ISBN}")" class="btn btn-info table-btn">Info</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
