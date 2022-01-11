@@ -108,7 +108,7 @@ public class BookRepository : IBookRepository
                 book.ShouldReturn = null;
                 book.BorrowDate = null;
                 book.BorrowerLastName = null;
-                book.BorrowerLastName = null;
+                book.BorrowerFirstName = null;
                 this._context.Books.Update(book);
             }
         }
