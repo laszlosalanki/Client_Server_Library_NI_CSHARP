@@ -72,7 +72,7 @@ public class BookRepository : IBookRepository
     {
         return _context.Books.Where(b => b.BorrowerFirstName != null
                                          && b.BorrowerLastName != null
-                                         && (b.BorrowerFirstName + b.BorrowerLastName).Contains(name))
+                                         && (b.BorrowerFirstName + b.BorrowerLastName).Equals(name))
                              .ToArray();
     }
 
@@ -120,8 +120,10 @@ public class BookRepository : IBookRepository
         Book? existingBook = this._context.Books.Find(bookToUpdate.ISBN);
         if (existingBook != null)
         {
-            this._context.Update(bookToUpdate);
-            this._context.SaveChanges();
+            existingBook.Title = bookToUpdate.Title;
+            existingBook.Publisher = bookToUpdate.Publisher;
+            existingBook.ReleaseDate = bookToUpdate.ReleaseDate;
+            this._context.Books.Update(existingBook);
             return bookToUpdate;
         }
         return null;
