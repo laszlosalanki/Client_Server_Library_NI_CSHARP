@@ -18,6 +18,7 @@ namespace ClientFrontEnd.Pages
         protected override async Task OnInitializedAsync()
         {
             Books = await HttpClient.GetFromJsonAsync<Book[]>($"books/borrowedBy/{BorrowerName}");
+            Books = Books.OrderBy(book => book.ShouldReturn.Value).ToArray();
             await base.OnInitializedAsync();
         }
     }
