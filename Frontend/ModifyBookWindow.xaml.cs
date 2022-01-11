@@ -48,9 +48,8 @@ namespace FrontEnd
             {
                 try
                 {
-                    AvailableBookDataProvider.UpdateBook(new Book(_book));
+                    AvailableBookDataProvider.UpdateBook(new Book(long.Parse(ISBN.Text), Title.Text, Authors.Text, Publisher.Text, ReleaseDate.SelectedDate.Value, null, null, null, null));
                     this.DialogResult = true;
-                    Close();
                 }
                 catch (InvalidOperationException e)
                 {
@@ -62,7 +61,6 @@ namespace FrontEnd
         private void CancelClick(object sender, RoutedEventArgs arguments)
         {
             this.DialogResult = false;
-            Close();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -70,7 +68,6 @@ namespace FrontEnd
             if (e.Key == Key.Escape)
             {
                 this.DialogResult = false;
-                Close();
             }
         }
     }

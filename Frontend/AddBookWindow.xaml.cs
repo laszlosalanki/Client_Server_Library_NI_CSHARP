@@ -44,13 +44,12 @@ namespace FrontEnd
                     else
                     {
                         MessageBox.Show("ISBN number is already registered.");
-                        this.DialogResult = false;
                     }
                 }
                 catch (InvalidOperationException e)
                 {
-                    this.DialogResult = false;
                     MessageBox.Show(e.Message);
+                    this.DialogResult = false;
                 }
             }
         }
@@ -58,7 +57,6 @@ namespace FrontEnd
         private void CancelClick(object sender, RoutedEventArgs arguments)
         {
             this.DialogResult = false;
-            Close();
         }
 
         private void ISBN_TextChanged(object sender, TextChangedEventArgs e)
@@ -87,7 +85,6 @@ namespace FrontEnd
             if (e.Key == Key.Escape)
             {
                 this.DialogResult = false;
-                Close();
             }
         }
     }

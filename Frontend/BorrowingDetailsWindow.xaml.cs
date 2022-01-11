@@ -27,7 +27,6 @@ namespace FrontEnd
         private void BorrowingDetailsCancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
-            Close();
         }
 
         private void LendBooks_Click(object sender, RoutedEventArgs e)
@@ -43,7 +42,6 @@ namespace FrontEnd
                     }
                     AvailableBookDataProvider.LendBooks(dateUpdatedSelectedBooks.ToArray());
                     this.DialogResult = true;
-                    Close();
                 }
                 catch (InvalidOperationException ex)
                 {
@@ -58,7 +56,6 @@ namespace FrontEnd
             if (e.Key == Key.Escape)
             {
                 this.DialogResult = false;
-                Close();
             }
         }
     }
