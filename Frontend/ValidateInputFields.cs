@@ -11,6 +11,7 @@ namespace FrontEnd
 #pragma warning disable LRT001
     public static class ValidateInputFields
     {
+        private static readonly List<char> _forbiddenChars = new List<char> { '!', '?', '_', '-', ':', ';', '#' };
         public static bool ValidateAddBookWindowFields(TextBox iSBN, TextBox title, TextBox authors, TextBox publisher, DatePicker releaseDate)
         {
             if (string.IsNullOrEmpty(iSBN.Text))
@@ -19,22 +20,55 @@ namespace FrontEnd
                 return false;
             }
 
-            if (string.IsNullOrEmpty(title.Text))
+            if (string.IsNullOrEmpty(title.Text) || string.IsNullOrWhiteSpace(title.Text))
             {
                 MessageBox.Show("Title should not be empty!");
                 return false;
             }
+            else
+            {
+                foreach (var c in title.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
+            }
 
-            if (string.IsNullOrEmpty(authors.Text))
+            if (string.IsNullOrEmpty(authors.Text) || string.IsNullOrWhiteSpace(authors.Text))
             {
                 MessageBox.Show("Authors should not be empty!");
                 return false;
             }
+            else
+            {
+                foreach (var c in authors.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
+            }
 
-            if (string.IsNullOrEmpty(publisher.Text))
+            if (string.IsNullOrEmpty(publisher.Text) || string.IsNullOrWhiteSpace(publisher.Text))
             {
                 MessageBox.Show("Publisher should not be empty!");
                 return false;
+            }
+            else
+            {
+                foreach (var c in publisher.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
             }
 
             if (!releaseDate.SelectedDate.HasValue)
@@ -54,22 +88,55 @@ namespace FrontEnd
 
         public static bool ValidateModifyBookWindowFields(TextBox title, TextBox authors, TextBox publisher, DatePicker releaseDate)
         {
-            if (string.IsNullOrEmpty(title.Text))
+            if (string.IsNullOrEmpty(title.Text) || string.IsNullOrWhiteSpace(title.Text))
             {
                 MessageBox.Show("Title should not be empty!");
                 return false;
             }
+            else
+            {
+                foreach (var c in title.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
+            }
 
-            if (string.IsNullOrEmpty(authors.Text))
+            if (string.IsNullOrEmpty(authors.Text) || string.IsNullOrWhiteSpace(authors.Text))
             {
                 MessageBox.Show("Authors should not be empty!");
                 return false;
             }
+            else
+            {
+                foreach (var c in authors.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
+            }
 
-            if (string.IsNullOrEmpty(publisher.Text))
+            if (string.IsNullOrEmpty(publisher.Text) || string.IsNullOrWhiteSpace(publisher.Text))
             {
                 MessageBox.Show("Publisher should not be empty!");
                 return false;
+            }
+            else
+            {
+                foreach (var c in publisher.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
             }
 
             if (!releaseDate.SelectedDate.HasValue)
@@ -89,16 +156,38 @@ namespace FrontEnd
 
         public static bool ValidateLendBooksWindowFields(TextBox clientFirstName, TextBox clientLastName, DatePicker clientShouldReturnBooks)
         {
-            if (string.IsNullOrEmpty(clientFirstName.Text))
+            if (string.IsNullOrEmpty(clientFirstName.Text) || string.IsNullOrWhiteSpace(clientFirstName.Text))
             {
                 MessageBox.Show("Field 'First Name' should not be empty!");
                 return false;
             }
+            else
+            {
+                foreach (var c in clientFirstName.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
+            }
 
-            if (string.IsNullOrEmpty(clientLastName.Text))
+            if (string.IsNullOrEmpty(clientLastName.Text) || string.IsNullOrWhiteSpace(clientLastName.Text))
             {
                 MessageBox.Show("Field 'Last Name' should not be empty!");
                 return false;
+            }
+            else
+            {
+                foreach (var c in clientLastName.Text)
+                {
+                    if (_forbiddenChars.Contains(c))
+                    {
+                        MessageBox.Show("You should not use special characters!");
+                        return false;
+                    }
+                }
             }
 
             if (!clientShouldReturnBooks.SelectedDate.HasValue)
